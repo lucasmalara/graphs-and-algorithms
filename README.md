@@ -24,7 +24,7 @@ discussed <code>approximation algorithm</code> for computing <code>maximum conne
 The implementation of the algorithm required defining specific data structure. Despite possibility to use already accessible 
 data structures in <code>Java</code>, I decided to implement the structure myself in case of possible improvements and changes 
 I could be willing to deploy - hence I defined <code>Graph class</code>. The next case was to decide about vertex implementation. 
-And simply, because of idea: <b>what if there would be a need for each or some vertex to store several values?</b>, I decided to 
+And simply, because of idea: <code>what if there would be a need for each or some vertex to store several values?</code>, I decided to 
 create a <code>Vertex class</code> as well. However, it was important to me to keep it simple for a potential user.
 Thus, I decided <code>Vertex</code> should be an <code>inner non-static class</code> of <code>Graph</code>, so the user 
 do not have to worry about having an object instance of <code>Vertex class</code> and use only a number as a reference. 
