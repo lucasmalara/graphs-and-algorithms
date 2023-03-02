@@ -138,4 +138,4 @@ Dependencies were managed using _Maven_ dependency mechanism. They were kept up 
 
 ## Author
 
-[@Łukasz Malara](https://github.com/LucasMalara "author")
+[@Łukasz Malara](https://github.com/lucasmalara "author")
