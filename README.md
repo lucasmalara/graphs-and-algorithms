@@ -46,7 +46,7 @@ Below list corresponds to the changes provided into project after thesis defence
 - Changed order of vertices in sets that user can see to `ascending`;
 - Changed sets of vertices that user can see to `unmodifiable`;
 - Changed return type of some methods from `void` to `boolean`;
-- Added new files to resources,;
+- Added new files to resources;
 - Added `javadoc`;
 - Added `dependencies`;
 - Added `JetBrains annotations`;
