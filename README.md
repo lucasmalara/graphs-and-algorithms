@@ -1,15 +1,17 @@
 
 # GRAPHS AND ALGORITHMS
 
-<p align="justify">
-The project is built using <b>Maven</b> for project management and the code is written in <b>Java 14</b>.
-</p>
+![release](https://img.shields.io/badge/release-v1.0-brightgreen.svg)
+![language](https://img.shields.io/badge/language-Java%2014-yellow.svg)
+[![Documentation](https://img.shields.io/badge/javadoc-Read-orange.svg)](https://lucasmalara.github.io/graphs-and-algorithms/)
+[![author](https://img.shields.io/badge/author-lucasmalara-blue.svg)](https://github.com/lucasmalara)
 
-Versions:
-- `1.0-beta` - For diploma thesis
-- `1.0` - Latest stable release
+## Versions
 
-## Purpose
+- `v1.0-beta`
+- `v1.0` - Latest stable release &bull; [**What's new?**](https://github.com/lucasmalara/graphs-and-algorithms/releases/tag/v1.0)
+
+## Goal
 
 The project was focused on:
 
@@ -28,50 +30,17 @@ important to me to keep it simple for a user. Thus, I decided that Vertex should
 so the user do not have to worry about having an object instance and use only a number as a reference. To make it possible, 
 I implemented methods that map numbers to vertex objects and the other way.
 <br>
-<br>
 After a graduation, I decided to improve the quality of written code and add new features. However, my goal was to keep
-the assumption about the implementation I determined in <code>1.0-beta</code> project version. Therefore, I didn't 
-implement palpable representation of edges, since the implementation of <b>vertex neighbourhood</b> was satisfactory 
-in such case. The outcome of my work has been committed on this repository.
+the assumption about the implementation I determined in <code>v1.0-beta</code>. Therefore, I didn't implement palpable 
+representation of edges, since the implementation of <b>vertex neighbourhood</b> was satisfactory in such case. 
+The outcome of my work has been committed on this repository.
 </p>
-
-## Changes in `1.0`
-
-### Improvements
-
-- Code refactoring (cleaner code, improved functionality and efficiency of Graph implementation)
-- Replaced some of the methods with lombok annotations
-- Changed the order of displayable vertices to ascending
-- Changed the displayable sets of vertices to unmodifiable
-- Changed return type of some of the methods from void to boolean
-- Added new files to resources
-- Added javadoc
-- Added JetBrains annotations
-- Added JUnit unit tests
-- Added GraphRunner class
-- Added NegativeVertexIndexException class
-- Added NoSuchVertexIndexException class
-
-### New Features
-
-- Disconnect vertices
-- Get neighbours of given vertex
-- Remove multiple vertices from the graph (before: only singular vertex per method invocation)
-- Create complete graph of given size,
-- Check if graph contains given vertices (before: only singular vertex per method invocation)
-- Check if subgraph or graph is bipartite
-- Check if subgraph or graph is complete
-- Check if given subset of vertices is an independent set of the graph
-- Compute maximal independent set in the graph
-- Modified implementation of breadth first search algorithm
-- Map a graph to a complete graph of the same size
-- Map vertices set to vertices indexes set
 
 ## Features
 
 - Create an empty graph (_order-zero graph / null graph_)
 - Create a graph from given file
-- Create a complete graph (including an empty)
+- Create a complete graph (including an _empty_)
 - Display graph structure (all vertices and for each their [open] neighbourhood list)
 - Get all vertices of the  graph
 - Get neighbours of given vertex
@@ -94,36 +63,26 @@ in such case. The outcome of my work has been committed on this repository.
 - Compute maximal independent set in the graph
 - Map a graph to a complete graph of the same size
 
-## Environment Variables
+## Run Configuration
 
-To run this project, it is recommended to add an **environment variable** to the **run configuration**:
+To run this project, it is recommended to add an **environment variable** to the run configuration:
 
 `ALLOW`
 and set its value to `true` or `false` - depending on wanted behaviour.
 
 ```
-if(ALLOW) -> runs basic and exceptions test of Graph implementation
+if(ALLOW) -> runs basic and exceptions test of the Graph implementation
 else -> runs only basic test of Graph implementation
 ```
 
-_Note that if you do not add environment variable to run configuration of a project you can expect to run the basic test only._
+_Note that if you do not add environment variable to the run configuration of a project you can expect to run the basic test only._
 
-## Used Dependencies
+## Dependencies
 
-Dependencies were managed using _Maven_ dependency mechanism. They were kept up to date during the work on project.
+[Lombok](https://projectlombok.org/) (1.18.26)
 
-[Lombok](https://projectlombok.org/) (1.18.24)
+[JetBrains Annotations](https://www.jetbrains.com/help/idea/annotating-source-code.html) (24.0.1)
 
-[JetBrains Annotations](https://www.jetbrains.com/help/idea/annotating-source-code.html) (23.0.0)
+[JUnit Jupiter API](https://junit.org/junit5/docs/5.9.0/api/org.junit.jupiter.api/module-summary.html) (5.9.2)
 
-[JUnit Jupiter API](https://junit.org/junit5/docs/5.9.0/api/org.junit.jupiter.api/module-summary.html) (5.9.0)
-
-[JUnit Jupiter Params](https://junit.org/junit5/docs/5.9.0/api/org.junit.jupiter.params/module-summary.html) (5.9.0)
-
-## Java Documentation
-
-[Read documentation online](https://lucasmalara.github.io/graphs-and-algorithms/ "Java documentation")
-
-## Author
-
-[@Łukasz Malara](https://github.com/lucasmalara "author")
+[JUnit Jupiter Params](https://junit.org/junit5/docs/5.9.0/api/org.junit.jupiter.params/module-summary.html) (5.9.2)
