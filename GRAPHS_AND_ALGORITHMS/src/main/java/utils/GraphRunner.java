@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -30,6 +31,7 @@ public class GraphRunner {
      */
     private static Graph graph = new Graph();
 
+    // make sure GRAPHS_AND_ALGORITHMS is the parent folder of the project
     /**
      * This field holds path to resources of this module.
      */
@@ -229,7 +231,7 @@ public class GraphRunner {
      */
     private static void setGraphFromFile(String file) throws NegativeVertexIndexException {
         for (String filesName : AVAILABLE_FILES) {
-            if (filesName.equals(file)) {
+            if (Objects.equals(filesName, file)) {
                 graph = new Graph(RESOURCES_PATH + file);
                 System.out.println("Graph has been created from the file.");
                 return;
