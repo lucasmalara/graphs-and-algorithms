@@ -28,7 +28,8 @@ class GraphTester {
          * Below static method can force to improper use of Graph methods.
          * As a consequence, run test that throws exceptions that are handled with printing specific info on console.
          *
-         * To use this functionality, add environment variable in run configuration: allow=true.
+         * To use this functionality, add environment variable to the
+         *  run configuration: allow=true.
          * By Default, this method does not execute exceptions test.
          * */
         GraphRunner.run(allowExceptionsTest);
