@@ -1,0 +1,1 @@
+This text file purposely causes to throw an exception.
