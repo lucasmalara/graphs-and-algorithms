@@ -53,6 +53,7 @@ class GraphUnitTest {
     @Test
     @DisplayName("Checking if vertices set of graph is unmodifiable.")
     void isUnmodifiableSetOfVertices() {
+        //noinspection DataFlowIssue
         assertNotNull(
                 assertThrowsExactly(UnsupportedOperationException.class,
                         () -> graph.getVertices().add(Integer.MAX_VALUE))
@@ -73,10 +74,15 @@ class GraphUnitTest {
     @DisplayName("Nested class for empty graphs.")
     class EmptyGraphUnitTest {
 
-        @Test
-        @DisplayName("Checking if graph is empty")
-        void isGraphEmpty() {
+        @BeforeEach
+        @DisplayName("Creating empty graph.")
+        void setEmptyGraph() {
             graph = new Graph();
+        }
+
+        @Test
+        @DisplayName("Checking if graph is empty.")
+        void isGraphEmpty() {
             assertTrue(graph.getVertices().isEmpty());
         }
     }
@@ -85,20 +91,24 @@ class GraphUnitTest {
     @DisplayName("Nested class for bipartite graphs.")
     class BipartiteGraphUnitTest {
 
-        @Test
-        @DisplayName("Checking if graph is bipartite.")
-        void isBipartiteGraph() {
+        @BeforeEach
+        @DisplayName("Creating bipartite graph.")
+        void setBipartiteGraph() {
             final String fileName = "bipartite_graph.txt";
             try {
                 graph = new Graph(RESOURCES_PATH + fileName);
             } catch (VertexIndexException e) {
                 System.out.println(e.getMessage());
-            } finally {
+            }
+        }
+
+        @Test
+        @DisplayName("Checking if graph is bipartite.")
+        void isBipartiteGraph() {
                 assertAll(() -> {
                     assertNotNull(graph);
                     assertTrue(graph.isBipartite());
                 });
-            }
         }
     }
 
