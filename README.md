@@ -97,10 +97,10 @@ _Note that if you do not add environment variable to the run configuration of a 
 
 ## Dependencies
 
-[Lombok](https://projectlombok.org/) (1.18.26)
+[Lombok](https://projectlombok.org/) (1.18.30)
 
-[JetBrains Annotations](https://www.jetbrains.com/help/idea/annotating-source-code.html) (24.0.1)
+[JetBrains Annotations](https://www.jetbrains.com/help/idea/annotating-source-code.html) (24.1.0)
 
-[JUnit Jupiter API](https://junit.org/junit5/docs/5.9.0/api/org.junit.jupiter.api/module-summary.html) (5.9.2)
+[JUnit Jupiter API](https://junit.org/junit5/docs/5.10.1/api/org.junit.jupiter.api/module-summary.html) (5.10.1)
 
-[JUnit Jupiter Params](https://junit.org/junit5/docs/5.9.0/api/org.junit.jupiter.params/module-summary.html) (5.9.2)
+[JUnit Jupiter Params](https://junit.org/junit5/docs/5.10.1/api/org.junit.jupiter.params/module-summary.html) (5.10.1)
