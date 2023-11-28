@@ -30,7 +30,9 @@ import static com.graphs.utils.GraphRunner.NUMBER_FORMAT_EXC_MSG;
  * Theoretical maximal size: {@link Integer#MAX_VALUE}
  * </pre>
  *
+ * @since 1.0-beta
  * @author Łukasz Malara
+ * @version JDK 1.4
  */
 @NoArgsConstructor
 public class Graph {
@@ -38,6 +40,7 @@ public class Graph {
     /**
      * This inner class implements vertices of this graph.
      *
+     * @since 1.0-beta
      * @see VertexIndexException
      */
     @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -49,6 +52,8 @@ public class Graph {
          *  Minimal value: 0
          *  Maximal value: {@link Integer#MAX_VALUE}
          * </pre>
+         *
+         * @since 1.0-beta
          */
         @Getter
         @EqualsAndHashCode.Include
@@ -57,6 +62,7 @@ public class Graph {
         /**
          * This field represents (open) neighbourhood of this vertex.
          *
+         * @since 1.0-beta
          * @see #getDegree()
          */
         private final List<Vertex> neighbours = new ArrayList<>();
@@ -66,6 +72,7 @@ public class Graph {
          *
          * @param index numerical index of a vertex.
          * @throws NegativeVertexIndexException if given parameter type {@code int < 0}.
+         * @since 1.0-beta
          * @see #index
          * @see #addNewVertex(int)
          */
@@ -80,6 +87,7 @@ public class Graph {
          * This method returns degree of this vertex.
          *
          * @return number of vertices in an open neighbourhood of this vertex.
+         * @since 1.0-beta
          * @see #neighbours
          */
         private int getDegree() {
@@ -91,6 +99,7 @@ public class Graph {
          *
          * @param vertex other vertex that is possibly adjacent to this vertex.
          * @return {@code true} if vertices are adjacent, {@code false} otherwise.
+         * @since 1.0-beta
          */
         private boolean isConnectedWith(Vertex vertex) {
             return this.neighbours.contains(vertex);
@@ -102,6 +111,7 @@ public class Graph {
          *
          * @param vertex a vertex to be adjacent to this vertex.
          * @return {@code true} if this vertex has been connected with given {@code Vertex}, {@code false} otherwise.
+         * @since 1.0-beta
          * @see #connectVertices(int, int)
          */
         private boolean connectWith(Vertex vertex) {
@@ -117,6 +127,7 @@ public class Graph {
          *
          * @param vertex a vertex to check if it can be connected with this vertex.
          * @return {@code true} if vertices can be connected, {@code false} otherwise.
+         * @since 1.1
          */
         private boolean canConnectWith(Vertex vertex) {
             return !this.equals(vertex) && !this.isConnectedWith(vertex);
@@ -127,6 +138,7 @@ public class Graph {
          *
          * @param vertex - a vertex to check if it can be disconnected with this vertex.
          * @return {@code true} if vertices can be disconnected, {@code false} otherwise.
+         * @since 1.1
          */
         private boolean canDisconnectWith(Vertex vertex) {
             return !this.equals(vertex) && (this.isConnectedWith(vertex) || vertex.isConnectedWith(this));
@@ -138,6 +150,7 @@ public class Graph {
          *
          * @param vertex a vertex to be disconnected with this vertex.
          * @return {@code true} if this vertex has been disconnected with given {@code Vertex}, {@code false} otherwise.
+         * @since 1.0-beta
          * @see #disconnectVertices(int, int)
          */
         private boolean disconnectWith(Vertex vertex) {
@@ -146,6 +159,7 @@ public class Graph {
 
         /**
          * @return {@code String} value of {@link #index}.
+         * @since 1.0-beta
          * @see #index
          */
         @Contract(pure = true)
@@ -161,6 +175,7 @@ public class Graph {
      *  Minimal size: 0 (empty)
      *  Theoretical maximal size: {@link Integer#MAX_VALUE}
      *  </pre>
+     * @since 1.0-beta
      */
     private final List<Vertex> itsVertices = new ArrayList<>();
 
@@ -171,6 +186,7 @@ public class Graph {
      *
      * @param fileSource absolute or relative path to a file required to create a graph.
      * @throws NegativeVertexIndexException if negative number was provided in a file.
+     * @since 1.0-beta
      */
     public Graph(@NotNull String fileSource) throws NegativeVertexIndexException {
         File file = new File(fileSource);
@@ -212,6 +228,7 @@ public class Graph {
      * @param size       number of vertices to create in a graph.
      * @return complete graph.
      * @throws NegativeVertexIndexException if first parameter type {@code int < 0}.
+     * @since 1.0
      * @see #mapToComplete()
      */
     public static Graph complete(int startIndex, int size) throws NegativeVertexIndexException {
@@ -229,9 +246,10 @@ public class Graph {
      * </p>
      *
      * @param startIndex numerical index of first vertex of graph
-     * @param size       number of vertices to generate for a graph.
+     * @param size number of vertices to generate for a graph.
      * @return complete graph if graph was empty, same graph otherwise.
      * @throws NegativeVertexIndexException if first parameter type {@code int < 0}.
+     * @since 1.0
      * @see #complete(int, int)
      */
     private Graph generateCompleteIfEmpty(int startIndex, int size) throws NegativeVertexIndexException {
@@ -256,6 +274,8 @@ public class Graph {
 
     /**
      * This method connects required vertices in order to make a graph complete.
+     *
+     * @since 1.0
      */
     public void mapToComplete() {
         if (this.canBeMappedToComplete()) {
@@ -273,6 +293,8 @@ public class Graph {
      * This method checks whether this graph can be mapped to complete.
      *
      * @return {@code true} if this graph can be mapped to complete, {@code false} otherwise.
+     *
+     * @since 1.1
      */
     private boolean canBeMappedToComplete() {
         return this.itsVertices.size() > 1 && !isComplete();
@@ -285,6 +307,7 @@ public class Graph {
      * @return vertex by given index.
      * @throws NegativeVertexIndexException if parameter type {@code int < 0}.
      * @throws NoSuchVertexIndexException   if this graph does not contain vertex with given {@code int} index.
+     * @since 1.0-beta
      * @see #getVertices()
      */
     private @NotNull Vertex getVertex(int index) throws NegativeVertexIndexException, NoSuchVertexIndexException {
@@ -304,6 +327,7 @@ public class Graph {
      * Returned {@code SortedSet} of {@code Integer} corresponds to user-friendly representation of vertices of {@link Graph}.
      *
      * @return unmodifiable sorted set of vertices of this graph.
+     * @since 1.0-beta
      * @see Collections#unmodifiableSortedSet(SortedSet)
      */
     public final @NotNull @UnmodifiableView Set<Integer> getVertices() {
@@ -317,6 +341,7 @@ public class Graph {
      * @return unmodifiable sorted set of neighbours of a vertex given by {@code int} index.
      * @throws NegativeVertexIndexException if parameter type {@code int < 0}.
      * @throws NoSuchVertexIndexException   if this graph does not contain vertex with given {@code int} index.
+     * @since 1.0
      */
     public final @NotNull @Unmodifiable Set<Integer> getVertexNeighbourhood(int index) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         return this.mapVerticesToIndexes(this.getVertex(index).neighbours);
@@ -328,6 +353,7 @@ public class Graph {
      * @param index numerical index of vertex.
      * @return {@code true} if this graph contains vertex with given index, {@code false} otherwise.
      * @throws NegativeVertexIndexException if parameter type {@code int < 0}.
+     * @since 1.0-beta
      * @see #areVerticesOfGraph(Collection)
      */
     public boolean isVertexOfGraph(int index) throws NegativeVertexIndexException {
@@ -338,9 +364,10 @@ public class Graph {
      * This method checks whether given subset contains a vertex with given {@code int} index.
      *
      * @param vertices vertices subset of graph.
-     * @param index    numerical index of vertex.
+     * @param index numerical index of vertex.
      * @return {@code true} if given subset contains vertex with given index, {@code false} otherwise.
      * @throws NegativeVertexIndexException if parameter type {@code int < 0}.
+     * @since 1.1
      */
     private boolean isVertexOfSubGraph(@NotNull Collection<Vertex> vertices, int index) throws NegativeVertexIndexException {
         return vertices.contains(new Vertex(index));
@@ -351,8 +378,9 @@ public class Graph {
      * This method checks whether given subset contains a given vertex.
      *
      * @param vertices vertices subset of graph.
-     * @param vertex   a vertex to check if it is in the subset.
+     * @param vertex a vertex to check if it is in the subset.
      * @return {@code true} if given subset contains given vertex, {@code false} otherwise.
+     * @since 1.1
      */
     @Contract(pure = true)
     private static boolean isVertexOfSubGraph(@NotNull Collection<Vertex> vertices, Vertex vertex) {
@@ -365,6 +393,7 @@ public class Graph {
      * @param subset {@code Collection} containing indexes of vertices to check if they are in this graph.
      * @return true if given {@code Collection} is a subset of vertices of this graph, false otherwise.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
+     * @since 1.0
      */
     public boolean areVerticesOfGraph(@NotNull Collection<Integer> subset) throws NegativeVertexIndexException {
         if (!subset.isEmpty()) {
@@ -380,11 +409,12 @@ public class Graph {
 
     /**
      * This method adds new vertex to this graph.
-     * The vertex is added only if the com.graphs.struct does not contain it already.
+     * The vertex is added only if the graph does not contain it already.
      *
      * @param index numerical index of vertex.
      * @return {@code true} if vertex with given {@code int} index was added, {@code false} otherwise.
      * @throws NegativeVertexIndexException if parameter type {@code int < 0}.
+     * @since 1.0-beta
      * @see #addNewVertices(Collection)
      */
     public boolean addNewVertex(int index) throws NegativeVertexIndexException {
@@ -405,6 +435,7 @@ public class Graph {
      * @param verticesToAdd {@code Collection} containing indexes of vertices to add.
      * @return {@code true} if each vertex from {@code Collection} has been added to this graph, {@code false} otherwise.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
+     * @since 1.0
      */
     public boolean addNewVertices(@NotNull Collection<Integer> verticesToAdd) throws NegativeVertexIndexException {
         Optional<Boolean> vertexNotAdded = Optional.empty();
@@ -424,6 +455,7 @@ public class Graph {
      * @return {@code true} if vertices with given indexes has been connected, {@code false} otherwise.
      * @throws NegativeVertexIndexException if any {@code int < 0}.
      * @throws NoSuchVertexIndexException   if this graph does not contain vertex with given either indexes.
+     * @since 1.0-beta
      */
     public boolean connectVertices(int indexV, int indexU) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         Vertex v = getVertex(indexV);
@@ -439,6 +471,7 @@ public class Graph {
      * @return {@code true} if vertices with given indexes has been disconnected, {@code false} otherwise.
      * @throws NegativeVertexIndexException if any {@code int < 0}.
      * @throws NoSuchVertexIndexException   if this graph does not contain vertex with given either indexes.
+     * @since 1.0
      */
     public boolean disconnectVertices(int indexV, int indexU) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         Vertex v = getVertex(indexV);
@@ -453,6 +486,7 @@ public class Graph {
      * @return {@code true} if vertex with given index has been removed.
      * @throws NegativeVertexIndexException if parameter type {@code int < 0}.
      * @throws NoSuchVertexIndexException   if this graph does not contain vertex with given {@code int} index.
+     * @since 1.0
      * @see #removeVertices(Collection)
      */
     public boolean removeVertex(int index) throws NegativeVertexIndexException, NoSuchVertexIndexException {
@@ -479,6 +513,7 @@ public class Graph {
      * @return {@code true} if each vertex from {@code Collection} has been removed.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
      * @throws NoSuchVertexIndexException   if given {@code Collection} contains number that could not be identified with any vertex index.
+     * @since 1.0
      */
     public boolean removeVertices(@NotNull Collection<Integer> verticesToRemove) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         for (Integer index : verticesToRemove) {
@@ -493,6 +528,7 @@ public class Graph {
      *
      * @param subset subset of vertices of this graph.
      * @return numbers of visited vertices.
+     * @since 1.0
      * @see #depthFirstSearch(Collection)
      */
     private int breadthFirstSearch(@NotNull Collection<Vertex> subset) {
@@ -524,6 +560,7 @@ public class Graph {
      * @param vertex  a vertex to check if it is given subset, and it was not already visited.
      * @param visited set of visited vertices.
      * @return {@code true} if vertex is in the subset and was not already visited, {@code false} otherwise.
+     * @since 1.1
      */
     private static boolean isInSubsetNotVisited(@NotNull Collection<Vertex> subset, Vertex vertex, HashSet<Vertex> visited) {
         return isVertexOfSubGraph(subset, vertex) && !isVertexOfSubGraph(visited, vertex);
@@ -535,6 +572,7 @@ public class Graph {
      *
      * @param subset subset of vertices of this graph.
      * @return numbers of visited vertices.
+     * @since 1.0-beta
      * @see #breadthFirstSearch(Collection)
      */
     private int depthFirstSearch(@NotNull Collection<Vertex> subset) {
@@ -561,6 +599,7 @@ public class Graph {
      * This method checks whether this graph is connected or disconnected.
      *
      * @return {@code true} if this graph is connected, {@code false} otherwise.
+     * @since 1.0-beta
      */
     public boolean isConnected() {
         return isConnectedSubGraph(this.itsVertices);
@@ -572,7 +611,8 @@ public class Graph {
      * @param subset {@code Collection} containing indexes of vertices to check if they induce connected subgraph of this graph.
      * @return {@code true} if given {@code Collection} induces connected subgraph of this graph, {@code false} otherwise.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
-     * @throws NoSuchVertexIndexException   if given {@code Collection} contains number that could not be identified with any vertex index.
+     * @throws NoSuchVertexIndexException if given {@code Collection} contains number that could not be identified with any vertex index.
+     * @since 1.0-beta
      */
     public boolean doInduceConnectedSubGraph(Collection<Integer> subset) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         Collection<Vertex> set = mapIndexesToVertices(subset);
@@ -584,6 +624,7 @@ public class Graph {
      *
      * @param subset subset of vertices of this graph.
      * @return {@code true} if given {@code Collection} induces connected subgraph of this graph, {@code false} otherwise.
+     * @since 1.0-beta
      * @see #isConnected()
      */
     private boolean isConnectedSubGraph(Collection<Vertex> subset) {
@@ -594,6 +635,7 @@ public class Graph {
      * This method checks whether this graph is complete or is not.
      *
      * @return {@code true} if graph is complete, {@code false} otherwise.
+     * @since 1.0
      */
     public boolean isComplete() {
         ArrayList<Vertex> allVertices = new ArrayList<>(this.itsVertices);
@@ -612,6 +654,7 @@ public class Graph {
      * This method checks whether this graph is bipartite or is not.
      *
      * @return {@code true} if this graph is bipartite, {@code false} otherwise.
+     * @since 1.0
      */
     public boolean isBipartite() {
         return isBipartiteSubGraph(this.itsVertices);
@@ -624,6 +667,7 @@ public class Graph {
      * @return {@code true} if given {@code Collection} is a subset of vertices of this graph that induces bipartite subgraph, {@code false} otherwise.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
      * @throws NoSuchVertexIndexException   if given {@code Collection} contains number that could not be identified with any vertex index.
+     * @since 1.0
      * @see #isBipartite()
      */
     public boolean doInduceBipartiteSubGraph(@NotNull Collection<Integer> subset) throws NegativeVertexIndexException, NoSuchVertexIndexException {
@@ -636,6 +680,7 @@ public class Graph {
      *
      * @param subset subset of vertices of this graph.
      * @return {@code true} if given {@code Collection} induces bipartite subgraph of this graph, {@code false} otherwise.
+     * @since 1.0
      */
     private boolean isBipartiteSubGraph(@NotNull Collection<Vertex> subset) {
         if (!subset.isEmpty()) {
@@ -670,7 +715,8 @@ public class Graph {
      * @param subset {@code Collection} containing indexes of vertices to check if they induce connected dominating set of this graph.
      * @return {@code true} if given {@code Collection} is a connected dominating set in this graph, {@code false} otherwise.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
-     * @throws NoSuchVertexIndexException   if given {@code Collection} contains number that could not be identified with any vertex index.
+     * @throws NoSuchVertexIndexException if given {@code Collection} contains number that could not be identified with any vertex index.
+     * @since 1.0-beta
      */
     public boolean isCDS(Collection<Integer> subset) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         Collection<Vertex> vertices = mapIndexesToVertices(subset);
@@ -693,7 +739,8 @@ public class Graph {
      * @param subset {@code  Collection} containing indexes of vertices to check if they induce an independent set in this graph.
      * @return {@code true} if given {@code Collection} is an independent set of this graph, false otherwise.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
-     * @throws NoSuchVertexIndexException   if given {@code Collection} contains number that could not be identified with any vertex index.
+     * @throws NoSuchVertexIndexException if given {@code Collection} contains number that could not be identified with any vertex index.
+     * @since 1.0
      */
     public boolean isIndependentSet(Collection<Integer> subset) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         Collection<Vertex> vertices = mapIndexesToVertices(subset);
@@ -708,6 +755,7 @@ public class Graph {
      * </p>
      *
      * @return minimal connected dominating set of this graph.
+     * @since 1.0-beta
      */
     public final @NotNull @Unmodifiable Set<Integer> findMCDS() {
         return mapVerticesToIndexes(computeMCDS());
@@ -722,6 +770,7 @@ public class Graph {
      * </p>
      *
      * @return minimal connected dominating set in this graph as a {@code Collection} of {@link Graph.Vertex}.
+     * @since 1.0-beta
      * @see #findMCDS()
      */
     private @NotNull Collection<Vertex> computeMCDS() {
@@ -765,12 +814,13 @@ public class Graph {
 
     /**
      * This method finds minimal dominating set in this graph.
-     * The result is unmodifiable sorted subset of vertices of this com.graphs.struct.
+     * The result is unmodifiable sorted subset of vertices of this graph.
      * <p>
      * To learn more details, read here: {@link #computeMDS()}.
      * </p>
      *
-     * @return minimal dominating set of this com.graphs.struct.
+     * @return minimal dominating set of this graph.
+     * @since 1.0
      */
     public final @NotNull @Unmodifiable Set<Integer> findMDS() {
         return mapVerticesToIndexes(computeMDS());
@@ -785,6 +835,7 @@ public class Graph {
      * </p>
      *
      * @return minimal dominating set in this graph as a {@code Collection} of {@link Graph.Vertex}.
+     * @since 1.0
      * @see #findMDS()
      */
     private @NotNull Collection<Vertex> computeMDS() {
@@ -812,7 +863,8 @@ public class Graph {
      * To learn more details, read here: {@link #computeMIS()}
      * </p>
      *
-     * @return maximal independent set of this com.graphs.struct.
+     * @return maximal independent set of this graph.
+     * @since 1.0
      */
     public final @NotNull @Unmodifiable Set<Integer> findMIS() {
         return mapVerticesToIndexes(computeMIS());
@@ -828,6 +880,7 @@ public class Graph {
      * </p>
      *
      * @return maximal independent set in this graph as a {@code Collection} of {@link Graph.Vertex}.
+     * @since 1.0
      * @see #findMIS()
      */
     private @NotNull Collection<Vertex> computeMIS() {
@@ -854,6 +907,7 @@ public class Graph {
      * @return {@code  Collection} of {@link Graph.Vertex}.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
      * @throws NoSuchVertexIndexException   if given {@code Collection} contains number that could not be identified with any vertex index.
+     * @since 1.0-beta
      */
     private @NotNull Collection<Vertex> mapIndexesToVertices(@NotNull Collection<Integer> indexes) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         Collection<Vertex> vertexCollection = new ArrayList<>();
@@ -868,6 +922,7 @@ public class Graph {
      *
      * @param vertices {@code  Collection} of {@link Graph.Vertex} to map from.
      * @return unmodifiable {@code SortedSet} of vertices indexes mapped from a given {@code Collection} of {@link Graph.Vertex}.
+     * @since 1.0
      * @see Collections#unmodifiableSortedSet(SortedSet)
      */
     private @NotNull @UnmodifiableView Set<Integer> mapVerticesToIndexes(@NotNull Collection<Vertex> vertices) {
@@ -890,6 +945,7 @@ public class Graph {
      * {@code int [<optional>int, ..., <optional>int]}</pre>
      *
      * @return user-friendly representation of this graph.
+     * @since 1.0-beta
      */
     @Override
     public String toString() {

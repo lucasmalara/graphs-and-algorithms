@@ -13,13 +13,18 @@ import com.graphs.utils.GraphRunner;
  * <pre>
  * {@code src/test/java/.. }
  * </pre>
+ *
+ * @since 1.0
  * @author Łukasz Malara
+ * @version JDK 1.4
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class GraphTester {
 
     /**
-     * This field holds name of an environment variable that its value is used to determine whether run basic test or additionally run also com.graphs.exceptions test.
+     * This field holds name of an environment variable that its value is used to determine
+     * whether run basic test or additionally run also exception test.
+     * @since 1.0
      * @see GraphRunner#run(boolean)
      */
     private static final String ALLOW = "ALLOW";

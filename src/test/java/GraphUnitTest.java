@@ -11,7 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for {@link Graph} class.
+ * @since 1.0
  * @author Łukasz Malara
+ * @version JDK 1.4, JUnit 5
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class GraphUnitTest {
