@@ -9,16 +9,8 @@
 ## Versions
 
 - `v1.0-beta`
-- `v1.0` - Latest stable release &bull; [**What's new?**](https://github.com/lucasmalara/graphs-and-algorithms/releases/tag/v1.0)
-- `v1.1` - Current dev on branch: `develop`
-
-## TODO List
-
-1. [x] ~~Update `javadoc`.~~
-
-2. [x] ~~Merge `develop->main`.~~
-
-3. [ ] Release `v1.1`.
+- `v1.0` 
+- `v1.1` - Latest stable release &bull; [**What's new?**](https://github.com/lucasmalara/graphs-and-algorithms/releases/tag/v1.1)
 
 ## Goal
 
