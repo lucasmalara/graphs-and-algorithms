@@ -14,7 +14,7 @@
 
 ## TODO List
 
-1. [ ] Update `javadoc`.
+1. [x] ~~Update `javadoc`.~~
 
 2. [ ] Merge `develop->main`.
 
