@@ -1,7 +1,7 @@
 
 # GRAPHS AND ALGORITHMS
 
-![release](https://img.shields.io/badge/release-v1.1-brightgreen.svg)
+[![release](https://img.shields.io/badge/release-v1.1-brightgreen.svg)](https://github.com/lucasmalara/graphs-and-algorithms/releases/tag/v1.1)
 ![language](https://img.shields.io/badge/language-Java%2014-yellow.svg)
 [![Documentation](https://img.shields.io/badge/javadoc-Read-orange.svg)](https://lucasmalara.github.io/graphs-and-algorithms/)
 [![author](https://img.shields.io/badge/author-lucasmalara-blue.svg)](https://github.com/lucasmalara)
