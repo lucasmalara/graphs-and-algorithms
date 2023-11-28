@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.graphs"},{"l":"com.graphs.exceptions.vertex"},{"l":"com.graphs.struct"},{"l":"com.graphs.utils"}];updateSearchResults();
