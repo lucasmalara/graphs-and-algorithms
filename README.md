@@ -16,7 +16,7 @@
 
 1. [x] ~~Update `javadoc`.~~
 
-2. [ ] Merge `develop->main`.
+2. [x] ~~Merge `develop->main`.~~
 
 3. [ ] Release `v1.1`.
 
