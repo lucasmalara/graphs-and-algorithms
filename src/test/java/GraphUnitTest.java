@@ -11,20 +11,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for {@link Graph} class.
- * @since 1.0
+ *
  * @author Łukasz Malara
  * @version JDK 1.4, JUnit 5
+ * @since 1.0
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class GraphUnitTest {
 
-    private static Graph graph;
-    private static final Random random = new Random();
+    private Graph graph;
+    private final Random random = new Random();
     private static final String RESOURCES_PATH = "src/main/resources/";
 
     @BeforeAll
     @DisplayName("Creating a non-empty graph from a text file.")
-    void setGraphFromFile() {
+    void givenFileWhenInitGraphThenSetNonEmpty() {
         final String fileName = "graph_example.txt";
         try {
             graph = new Graph(RESOURCES_PATH + fileName);
@@ -39,20 +40,21 @@ class GraphUnitTest {
     }
 
     @Test
-    @DisplayName("Checking if graph is connected.")
-    void isGraphConnected() {
+    @DisplayName("Checking if a graph is connected.")
+    void givenGraphWhenIsConnectedThenReturnTrue() {
         assertTrue(graph.isConnected());
     }
 
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 7, 11})
-    void isVertexOfGraph(int index) {
+    @DisplayName("Checking if given positive indexes of vertices are indexes of vertices of a graph.")
+    void givenPositiveIndexWhenIsVertexOfGraphThenReturnTrue(int index) {
         assertTrue(graph.isVertexOfGraph(index));
     }
 
     @Test
-    @DisplayName("Checking if vertices set of graph is unmodifiable.")
-    void isUnmodifiableSetOfVertices() {
+    @DisplayName("Checking if vertices set of a graph is unmodifiable.")
+    void givenUnmodifiableSetOfVerticesWhenAddVertexThenThrowUnsupportedOperationException() {
         //noinspection DataFlowIssue
         assertNotNull(
                 assertThrowsExactly(UnsupportedOperationException.class,
@@ -63,7 +65,7 @@ class GraphUnitTest {
     @ParameterizedTest
     @ValueSource(ints = {-1, -2})
     @DisplayName("Checking if you cannot add vertex with negative index.")
-    void isAddingNegativeVertexForbidden(int negative) {
+    void givenNegativeIndexWhenAddVertexThenThrowNegativeVertexIndexException(int negative) {
         assertNotNull(
                 assertThrowsExactly(NegativeVertexIndexException.class,
                         () -> graph.addNewVertex(negative))
@@ -76,13 +78,13 @@ class GraphUnitTest {
 
         @BeforeEach
         @DisplayName("Creating empty graph.")
-        void setEmptyGraph() {
+        void whenInitGraphThenSetEmpty() {
             graph = new Graph();
         }
 
         @Test
         @DisplayName("Checking if graph is empty.")
-        void isGraphEmpty() {
+        void givenGraphWhenIsEmptyThenReturnTrue() {
             assertTrue(graph.getVertices().isEmpty());
         }
     }
@@ -93,7 +95,7 @@ class GraphUnitTest {
 
         @BeforeEach
         @DisplayName("Creating bipartite graph.")
-        void setBipartiteGraph() {
+        void givenFileWhenInitGraphThenSetBipartite() {
             final String fileName = "bipartite_graph.txt";
             try {
                 graph = new Graph(RESOURCES_PATH + fileName);
@@ -104,11 +106,11 @@ class GraphUnitTest {
 
         @Test
         @DisplayName("Checking if graph is bipartite.")
-        void isBipartiteGraph() {
-                assertAll(() -> {
-                    assertNotNull(graph);
-                    assertTrue(graph.isBipartite());
-                });
+        void givenBipartiteGraphWhenIsBipartiteAssertTrue() {
+            assertAll(() -> {
+                assertNotNull(graph);
+                assertTrue(graph.isBipartite());
+            });
         }
     }
 
@@ -119,7 +121,7 @@ class GraphUnitTest {
         @ParameterizedTest
         @ValueSource(ints = {0, 4, 5})
         @DisplayName("Checking if graph is complete.")
-        void isComplete(int size) {
+        void givenCompleteGraphWhenIsCompleteThenReturnTrue(int size) {
             final int startIndex = random.nextInt(2);
             graph = Graph.complete(startIndex, size);
             assertAll(() -> {
@@ -130,27 +132,48 @@ class GraphUnitTest {
         }
 
         @ParameterizedTest
-        @ValueSource(ints = {2, 3, 7, 8})
-        @DisplayName("Checking if found proper minimal connected dominating set for complete graph.")
-        void mcdsInComplete(int size) {
-            graph = Graph.complete(1, size);
-            assertEquals(1, graph.findMCDS().size());
+        @ValueSource(ints = {0, 2, 3, 7, 8})
+        @DisplayName("Checking if found proper minimal connected dominating set for a complete graph.")
+        void givenPositiveNumberOfVerticesWhenComputingMCDSInCompleteGraphThenFindProperSet(int size) {
+            int randomStartIndex = random.nextInt(9);
+            graph = Graph.complete(randomStartIndex, size);
+            assertAll(() -> {
+                int computed = graph.findMCDS().size();
+                if (size == 0)
+                    assertEquals(0, computed);
+                else
+                    assertEquals(1, computed);
+            });
         }
 
         @ParameterizedTest
-        @ValueSource(ints = {2, 3, 7, 8})
-        @DisplayName("Checking if found proper minimal dominating set for complete graph.")
-        void mdsInComplete(int size) {
-            graph = Graph.complete(1, size);
-            assertEquals(1, graph.findMDS().size());
+        @ValueSource(ints = {0, 2, 3, 7, 8})
+        @DisplayName("Checking if found proper minimal dominating set for a complete graph.")
+        void givenPositiveNumberOfVerticesWhenComputingMDSInCompleteGraphThenFindProperSet(int size) {
+            int randomStartIndex = random.nextInt(9);
+            graph = Graph.complete(randomStartIndex, size);
+            assertAll(() -> {
+                int computed = graph.findMDS().size();
+                if (size == 0)
+                    assertEquals(0, computed);
+                else
+                    assertEquals(1, computed);
+            });
         }
 
         @ParameterizedTest
-        @ValueSource(ints = {2, 3, 7, 8})
+        @ValueSource(ints = {0, 2, 3, 7, 8})
         @DisplayName("Checking if found proper maximal independent set for complete graph.")
-        void misInComplete(int size) {
-            graph = Graph.complete(1, size);
-            assertEquals(1, graph.findMIS().size());
+        void givenPositiveNumberOfVerticesWhenComputingMISInCompleteGraphThenFindProperSet(int size) {
+            int randomStartIndex = random.nextInt(9);
+            graph = Graph.complete(randomStartIndex, size);
+            assertAll(() -> {
+                int computed = graph.findMIS().size();
+                if (size == 0)
+                    assertEquals(0, computed);
+                else
+                    assertEquals(1, computed);
+            });
         }
     }
 }
