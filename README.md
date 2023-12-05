@@ -1,7 +1,7 @@
 
 # GRAPHS AND ALGORITHMS
 
-[![release](https://img.shields.io/badge/release-v1.1-brightgreen.svg)](https://github.com/lucasmalara/graphs-and-algorithms/releases/tag/v1.1)
+[![release](https://img.shields.io/badge/release-v1.2-brightgreen.svg)](https://github.com/lucasmalara/graphs-and-algorithms/releases/tag/v1.2)
 ![language](https://img.shields.io/badge/language-Java%2014-yellow.svg)
 [![Documentation](https://img.shields.io/badge/javadoc-Read-orange.svg)](https://lucasmalara.github.io/graphs-and-algorithms/)
 [![author](https://img.shields.io/badge/author-lucasmalara-blue.svg)](https://github.com/lucasmalara)
@@ -10,7 +10,8 @@
 
 - `v1.0-beta`
 - `v1.0` 
-- `v1.1` - Latest stable release &bull; [**What's new?**](https://github.com/lucasmalara/graphs-and-algorithms/releases/tag/v1.1)
+- `v1.1`
+- `v1.2` - Latest stable release &bull; [**What's new?**](https://github.com/lucasmalara/graphs-and-algorithms/releases/tag/v1.2)
 
 ## Goal
 
