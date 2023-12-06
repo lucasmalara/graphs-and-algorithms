@@ -12,18 +12,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
  * This class implements testing behaviour of {@link Graph} class.
- * @since 1.0
+ *
  * @author Łukasz Malara
  * @version JDK 1.4
+ * @since 1.0
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GraphRunner {
@@ -33,7 +31,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
-    private static Graph graph = new Graph();
+    private static Graph<Object> graph = new Graph<>();
 
     /**
      * This field holds path to resources of this module.
@@ -73,8 +71,8 @@ public class GraphRunner {
     /**
      * This field holds dashes used as a separator.
      *
-     * @since 1.0
      * @see #printSeparator()
+     * @since 1.0
      */
     private static final String SEPARATOR = "--------------------";
 
@@ -108,15 +106,13 @@ public class GraphRunner {
 
     /**
      * This method runs a test of {@link Graph} class behaviour.
-     * @param allowExceptions if {@code true} run exceptions test as well, if {@code false} run basic test only.
      *
+     * @param allowExceptions if {@code true} run exceptions test as well, if {@code false} run basic test only.
      * @since 1.0
      */
     public static void run(boolean allowExceptions) {
         initRun();
-        if (allowExceptions) {
-            initRunExceptions();
-        }
+        if (allowExceptions) initRunExceptions();
     }
 
     /**
@@ -192,12 +188,12 @@ public class GraphRunner {
      */
     private static void initRunExceptions() {
         System.out.println("\n" + SEPARATOR + " START OF AN EXCEPTION TEST " + SEPARATOR);
-        Graph suspiciousGraph;
-        new Graph("/");
-        new Graph(RESOURCES_PATH);
-        new Graph(RESOURCES_PATH + ".txt");
-        new Graph(RESOURCES_PATH + TRICKY_FILE_NAME);
-        suspiciousGraph = new Graph();
+        Graph<Object> suspiciousGraph;
+        new Graph<String>("/");
+        new Graph<Integer>(RESOURCES_PATH);
+        new Graph<>(RESOURCES_PATH + ".txt");
+        new Graph<Boolean>(RESOURCES_PATH + TRICKY_FILE_NAME);
+        suspiciousGraph = new Graph<>();
         suspiciousGraph.addNewVertex(1);
         suspiciousGraph.addNewVertex(2);
         try {
@@ -215,8 +211,8 @@ public class GraphRunner {
 
     /**
      * This method finds names of every available file in {@link #RESOURCES_PATH} directory.
-     * @return an {@code array} of available files names.
      *
+     * @return an {@code array} of available files names.
      * @since 1.0
      */
     private static String @NotNull [] findAvailableFiles() {
@@ -235,25 +231,26 @@ public class GraphRunner {
 
     /**
      * This method prints conditional message as a feedback of other methods.
-     * @param condition condition to verify its satisfaction to determine which message option should be printed in a feedback.
-     * @param baseMessage message that is printed besides satisfaction of a condition.
-     * @param ifTrue message that is printed if condition is satisfied.
-     * @param ifFalse message that is printed if condition is unsatisfied.
      *
+     * @param condition   condition to verify its satisfaction to determine which message option should be printed in a feedback.
+     * @param baseMessage message that is printed besides satisfaction of a condition.
+     * @param ifTrue      message that is printed if condition is satisfied.
+     * @param ifFalse     message that is printed if condition is unsatisfied.
      * @since 1.0
      */
     private static void printConditionalMessage(boolean condition, String baseMessage, String ifTrue, String ifFalse) {
-        if (condition) {
+        if (condition)
             System.out.printf(baseMessage, ifTrue);
-        } else System.out.printf(baseMessage, ifFalse);
+        else
+            System.out.printf(baseMessage, ifFalse);
         System.out.println();
     }
 
     /**
      * This method prints separator.
      *
-     * @since 1.0
      * @see #SEPARATOR
+     * @since 1.0
      */
     private static void printSeparator() {
         System.out.println(SEPARATOR);
@@ -261,16 +258,17 @@ public class GraphRunner {
 
     /**
      * This method sets {@link #graph} based on a structure defined in a file given as a parameter.
+     *
      * @param file name of a file containing graph structure definition.
      * @throws NegativeVertexIndexException if file contains negative number(s).
-     *
      * @since 1.0
      */
     private static void setGraphFromFile(String file) throws NegativeVertexIndexException {
         for (String filesName : AVAILABLE_FILES) {
             if (Objects.equals(filesName, file)) {
-                graph = new Graph(RESOURCES_PATH + file);
+                graph = new Graph<>(RESOURCES_PATH + file);
                 System.out.println("Graph has been created from the file.");
+                // if graph is initialized, exit the method
                 return;
             }
         }
@@ -283,7 +281,7 @@ public class GraphRunner {
      * @since 1.0
      */
     private static void setGraphToEmpty() {
-        graph = new Graph();
+        graph = new Graph<>();
         System.out.println("Graph is now empty.");
     }
 
@@ -301,24 +299,22 @@ public class GraphRunner {
 
     /**
      * This method prints feedback message if vertices given as a parameter have been added to {@link #graph}.
+     *
      * @param vertices {@code Collection} of a vertices indexes to add to {@link #graph}.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
-     *
      * @since 1.0
      */
     private static void printIfVerticesAdded(Collection<Integer> vertices) throws NegativeVertexIndexException {
         boolean added = graph.addNewVertices(vertices);
-        if (added) {
-            System.out.println("Vertices: " + vertices + " has been added.");
-        }
+        if (added) System.out.println("Vertices: " + vertices + " has been added.");
     }
 
     /**
      * This method prints feedback message if vertices given as a parameter have been removed from {@link #graph}.
+     *
      * @param vertices {@code Collection} of a vertices indexes to remove from {@link #graph}.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
-     * @throws NoSuchVertexIndexException if {@code Collection} contains any indexes that could not be identified with any vertex of {@link #graph}.
-     *
+     * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of {@link #graph}.
      * @since 1.0
      */
     private static void printIfVerticesRemoved(Collection<Integer> vertices) throws NegativeVertexIndexException, NoSuchVertexIndexException {
@@ -328,34 +324,30 @@ public class GraphRunner {
 
     /**
      * This method prints feedback message if vertices given as a parameter of {@link #graph} have been connected.
+     *
      * @param indexI index of a vertex
      * @param indexJ index of another vertex
      * @throws NegativeVertexIndexException if any {@code int < 0}.
-     * @throws NoSuchVertexIndexException if {@link #graph} does not contain either vertices with indexes type {@code int} given as a parameter.
-     *
+     * @throws NoSuchVertexIndexException   if {@link #graph} does not contain either vertices with indexes type {@code int} given as a parameter.
      * @since 1.0
      */
     private static void printIfVerticesConnected(int indexI, int indexJ) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         boolean connected = graph.connectVertices(indexI, indexJ);
-        if (connected) {
-            System.out.println("Vertices " + indexI + " and " + indexJ + " are adjacent now.");
-        }
+        if (connected) System.out.println("Vertices " + indexI + " and " + indexJ + " are adjacent now.");
     }
 
     /**
      * This method prints feedback message if vertices given as a parameter of {@link #graph} have been disconnected.
+     *
      * @param indexI index of a vertex
      * @param indexJ index of another vertex
      * @throws NegativeVertexIndexException if any {@code int < 0}.
-     * @throws NoSuchVertexIndexException if {@link #graph} does not contain either vertices with indexes type {@code int} given as a parameter.
-     *
+     * @throws NoSuchVertexIndexException   if {@link #graph} does not contain either vertices with indexes type {@code int} given as a parameter.
      * @since 1.0
      */
     private static void printIfVerticesDisconnected(int indexI, int indexJ) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         boolean disconnected = graph.disconnectVertices(indexI, indexJ);
-        if (disconnected) {
-            System.out.println("Vertices " + indexI + " and " + indexJ + " are disconnected now.");
-        }
+        if (disconnected) System.out.println("Vertices " + indexI + " and " + indexJ + " are disconnected now.");
     }
 
     /**
@@ -406,10 +398,10 @@ public class GraphRunner {
 
     /**
      * This method prints feedback message whether given subset as a parameter is a connected dominating set in {@link #graph} or is not.
+     *
      * @param vertices {@code Collection} of a vertices indexes to check if they form a connected dominating set in {@link #graph}.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
-     * @throws NoSuchVertexIndexException if {@code Collection} contains any indexes that could not be identified with any vertex of {@link #graph}.
-     *
+     * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of {@link #graph}.
      * @since 1.0
      */
     private static void printIsConnectedDominatingSet(Collection<Integer> vertices) throws NegativeVertexIndexException, NoSuchVertexIndexException {
@@ -421,10 +413,10 @@ public class GraphRunner {
 
     /**
      * This method prints feedback message whether given subset as a parameter is an independent set in {@link #graph} or is not.
+     *
      * @param vertices {@code Collection} of a vertices indexes to check if they form a connected dominating set in {@link #graph}.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
-     * @throws NoSuchVertexIndexException if {@code Collection} contains any indexes that could not be identified with any vertex of {@link #graph}.
-     *
+     * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of {@link #graph}.
      * @since 1.0
      */
     private static void printIsIndependentSet(Collection<Integer> vertices) throws NegativeVertexIndexException, NoSuchVertexIndexException {
@@ -448,11 +440,11 @@ public class GraphRunner {
 
     /**
      * This method prints feedback message about satisfaction of inducing subgraph of {@link #graph} by some set.
-     * @param induces condition to verify inducing subgraph of {@link #graph} by some set.
-     * @param baseMessage message that is printed besides condition satisfaction.
      *
-     * @since 1.0
+     * @param induces     condition to verify inducing subgraph of {@link #graph} by some set.
+     * @param baseMessage message that is printed besides condition satisfaction.
      * @see #printConditionalMessage(boolean, String, String, String)
+     * @since 1.0
      */
     private static void doInducePatternMessage(boolean induces, String baseMessage) {
         printConditionalMessage(induces, baseMessage, "induce", "do not induce");
@@ -460,9 +452,10 @@ public class GraphRunner {
 
     /**
      * This method prints feedback message whether given subset as a parameter induces connected subgraph of {@link #graph} or does not.
+     *
      * @param vertices {@code Collection} of a vertices indexes to check if they induce connected subgraph of {@link #graph}.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
-     * @throws NoSuchVertexIndexException if {@code Collection} contains any indexes that could not be identified with any vertex of {@link #graph}.
+     * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of {@link #graph}.
      * @since 1.0
      */
     private static void printDoInduceConnectedSubGraph(Collection<Integer> vertices) throws NegativeVertexIndexException, NoSuchVertexIndexException {
@@ -474,9 +467,10 @@ public class GraphRunner {
 
     /**
      * This method prints feedback message whether given subset as a parameter induces bipartite subgraph of {@link #graph} or it does not.
+     *
      * @param vertices {@code Collection} of a vertices indexes to check if they induce bipartite subgraph of {@link #graph}.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
-     * @throws NoSuchVertexIndexException if {@code Collection} contains any indexes that could not be identified with any vertex of {@link #graph}.
+     * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of {@link #graph}.
      * @since 1.0
      */
     private static void printDoInduceBipartiteSubGraph(Collection<Integer> vertices) throws NegativeVertexIndexException, NoSuchVertexIndexException {

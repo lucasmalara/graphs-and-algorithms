@@ -6,6 +6,7 @@ import com.graphs.exceptions.vertex.VertexIndexException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
@@ -26,26 +27,29 @@ import static com.graphs.utils.GraphRunner.NUMBER_FORMAT_EXC_MSG;
  * This class implements undirected unweighted graphs.
  * Adding loops and multiple edges is not supported.
  * Adding a vertex with a neither negative nor duplicated index is not supported.
+ * A graph can store values in each vertex.
  * <pre>
  * Minimal size: 0 (no vertices)
  * Theoretical maximal size: {@link Integer#MAX_VALUE}
  * </pre>
  *
+ * @param <T> the bounding type stored in this graph in its vertices.
  * @author Łukasz Malara
  * @version JDK 1.4
  * @since 1.0-beta
  */
 @NoArgsConstructor
-public class Graph {
+public class Graph<T> {
 
     /**
      * This inner class implements vertices of this graph.
      *
+     * @param <E> the type of element stored in this vertex.
      * @see VertexIndexException
      * @since 1.0-beta
      */
     @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-    private class Vertex {
+    private class Vertex<E extends T> {
 
         /**
          * This field represents index of a vertex. Once initialized, cannot be changed.
@@ -66,7 +70,17 @@ public class Graph {
          * @see #getDegree()
          * @since 1.0-beta
          */
-        private final List<Vertex> neighbours = new ArrayList<>();
+        private final List<Vertex<E>> neighbours = new ArrayList<>();
+
+        /**
+         * This field represents data stored in this vertex.
+         *
+         * @see #getVertexData(int)
+         * @since 2.0
+         */
+        @Getter
+        @Setter
+        private E element;
 
         /**
          * This constructor creates vertex based on a given {@code int} parameter.
@@ -100,7 +114,7 @@ public class Graph {
          * @return {@code true} if vertices are adjacent, {@code false} otherwise.
          * @since 1.0-beta
          */
-        private boolean isConnectedWith(Vertex vertex) {
+        private boolean isConnectedWith(Vertex<E> vertex) {
             return this.neighbours.contains(vertex);
         }
 
@@ -113,7 +127,7 @@ public class Graph {
          * @see #connectVertices(int, int)
          * @since 1.0-beta
          */
-        private boolean connectWith(Vertex vertex) {
+        private boolean connectWith(Vertex<E> vertex) {
             if (this.canConnectWith(vertex)) {
                 this.neighbours.add(vertex);
                 return vertex.neighbours.add(this);
@@ -128,7 +142,7 @@ public class Graph {
          * @return {@code true} if vertices can be connected, {@code false} otherwise.
          * @since 1.1
          */
-        private boolean canConnectWith(Vertex vertex) {
+        private boolean canConnectWith(Vertex<E> vertex) {
             return !this.equals(vertex) && !this.isConnectedWith(vertex);
         }
 
@@ -139,7 +153,7 @@ public class Graph {
          * @return {@code true} if vertices can be disconnected, {@code false} otherwise.
          * @since 1.1
          */
-        private boolean canDisconnectWith(Vertex vertex) {
+        private boolean canDisconnectWith(Vertex<E> vertex) {
             return !this.equals(vertex) && (this.isConnectedWith(vertex) || vertex.isConnectedWith(this));
         }
 
@@ -152,7 +166,7 @@ public class Graph {
          * @see #disconnectVertices(int, int)
          * @since 1.0-beta
          */
-        private boolean disconnectWith(Vertex vertex) {
+        private boolean disconnectWith(Vertex<E> vertex) {
             return this.canDisconnectWith(vertex) && vertex.neighbours.remove(this);
         }
 
@@ -177,7 +191,7 @@ public class Graph {
      *
      * @since 1.0-beta
      */
-    private final List<Vertex> itsVertices = new ArrayList<>();
+    private final List<Vertex<T>> itsVertices = new ArrayList<>();
 
     /**
      * This constructor creates graph based on a strictly defined pattern provided in a text file.
@@ -231,8 +245,8 @@ public class Graph {
      * @see #mapToComplete()
      * @since 1.0
      */
-    public static Graph complete(int startIndex, int size) throws NegativeVertexIndexException {
-        return new Graph().generateCompleteIfEmpty(startIndex, size);
+    public Graph<T> complete(int startIndex, int size) throws NegativeVertexIndexException {
+        return generateCompleteIfEmpty(startIndex, size);
     }
 
     /**
@@ -252,7 +266,7 @@ public class Graph {
      * @see #complete(int, int)
      * @since 1.0
      */
-    private Graph generateCompleteIfEmpty(int startIndex, int size) throws NegativeVertexIndexException {
+    private Graph<T> generateCompleteIfEmpty(int startIndex, int size) throws NegativeVertexIndexException {
         if (startIndex < 0) throw new NegativeVertexIndexException();
         if (this.itsVertices.isEmpty() && size > 0) {
             if (Integer.MAX_VALUE - startIndex < size) {
@@ -278,8 +292,8 @@ public class Graph {
         if (this.canBeMappedToComplete()) {
             for (int i = 0; i < this.itsVertices.size(); i++) {
                 for (int j = 1; j < this.itsVertices.size(); j++) {
-                    Vertex v = this.itsVertices.get(i);
-                    Vertex u = this.itsVertices.get(j);
+                    Vertex<T> v = this.itsVertices.get(i);
+                    Vertex<T> u = this.itsVertices.get(j);
                     v.connectWith(u);
                 }
             }
@@ -306,7 +320,7 @@ public class Graph {
      * @see #getVertices()
      * @since 1.0-beta
      */
-    private @NotNull Vertex getVertex(int index) throws NegativeVertexIndexException, NoSuchVertexIndexException {
+    private @NotNull Vertex<T> getVertex(int index) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         if (index < 0) throw new NegativeVertexIndexException();
         return this.itsVertices.stream()
                 .filter(vertex -> vertex.index == index)
@@ -325,6 +339,33 @@ public class Graph {
      */
     public final @NotNull @UnmodifiableView Set<Integer> getVertices() {
         return this.mapVerticesToIndexes(this.itsVertices);
+    }
+
+    /**
+     * This method returns unmodifiable data stored in a vertex by given index.
+     *
+     * @param index numerical index of vertex.
+     * @return data stored in vertex by given index.
+     * @throws NegativeVertexIndexException if parameter type {@code int < 0}.
+     * @throws NoSuchVertexIndexException   if this graph does not contain vertex with given {@code int} index.
+     * @since 2.0
+     */
+    public final @UnmodifiableView T getVertexData(int index) throws NegativeVertexIndexException, NoSuchVertexIndexException {
+        return getVertex(index).getElement();
+    }
+
+
+    /**
+     * This method set the data stored in a vertex by given index.
+     *
+     * @param index numerical index of vertex
+     * @param data  data to store in a vertex by given index.
+     * @throws NegativeVertexIndexException if parameter type {@code int < 0}.
+     * @throws NoSuchVertexIndexException   if this graph does not contain vertex with given {@code int} index.
+     * @since 2.0
+     */
+    public void setVertexData(int index, T data) throws NegativeVertexIndexException, NoSuchVertexIndexException {
+        getVertex(index).setElement(data);
     }
 
     /**
@@ -362,8 +403,8 @@ public class Graph {
      * @throws NegativeVertexIndexException if parameter type {@code int < 0}.
      * @since 1.1
      */
-    private boolean isVertexOfSubGraph(@NotNull Collection<Vertex> vertices, int index) throws NegativeVertexIndexException {
-        return vertices.contains(new Vertex(index));
+    private boolean isVertexOfSubGraph(@NotNull Collection<Vertex<T>> vertices, int index) throws NegativeVertexIndexException {
+        return vertices.contains(new Vertex<>(index));
     }
 
 
@@ -376,7 +417,7 @@ public class Graph {
      * @since 1.1
      */
     @Contract(pure = true)
-    private static boolean isVertexOfSubGraph(@NotNull Collection<Vertex> vertices, Vertex vertex) {
+    private boolean isVertexOfSubGraph(@NotNull Collection<Vertex<T>> vertices, Vertex<T> vertex) {
         return vertices.contains(vertex);
     }
 
@@ -404,7 +445,13 @@ public class Graph {
      */
     public boolean addNewVertex(int index) throws NegativeVertexIndexException {
         if (isVertexOfGraph(index)) return false;
-        return this.itsVertices.add(new Vertex(index));
+        return this.itsVertices.add(new Vertex<>(index));
+    }
+
+    public boolean addNewVertex(int index, T data) throws NegativeVertexIndexException {
+        boolean added = addNewVertex(index);
+        if (added) setVertexData(index, data);
+        return added;
     }
 
     /**
@@ -440,8 +487,8 @@ public class Graph {
      * @since 1.0-beta
      */
     public boolean connectVertices(int indexV, int indexU) throws NegativeVertexIndexException, NoSuchVertexIndexException {
-        Vertex v = getVertex(indexV);
-        Vertex u = getVertex(indexU);
+        Vertex<T> v = getVertex(indexV);
+        Vertex<T> u = getVertex(indexU);
         return v.connectWith(u);
     }
 
@@ -456,8 +503,8 @@ public class Graph {
      * @since 1.0
      */
     public boolean disconnectVertices(int indexV, int indexU) throws NegativeVertexIndexException, NoSuchVertexIndexException {
-        Vertex v = getVertex(indexV);
-        Vertex u = getVertex(indexU);
+        Vertex<T> v = getVertex(indexV);
+        Vertex<T> u = getVertex(indexU);
         return v.disconnectWith(u) && u.disconnectWith(v);
     }
 
@@ -472,9 +519,9 @@ public class Graph {
      * @since 1.0
      */
     public boolean removeVertex(int index) throws NegativeVertexIndexException, NoSuchVertexIndexException {
-        Vertex vertex = getVertex(index);
+        Vertex<T> vertex = getVertex(index);
         if (!vertex.neighbours.isEmpty()) {
-            for (Vertex v : vertex.neighbours) {
+            for (Vertex<T> v : vertex.neighbours) {
                 vertex.disconnectWith(v);
             }
         }
@@ -513,14 +560,14 @@ public class Graph {
      * @see #depthFirstSearch(Collection)
      * @since 1.0
      */
-    private int breadthFirstSearch(@NotNull Collection<Vertex> subset) {
-        HashSet<Vertex> visited = new HashSet<>();
+    private int breadthFirstSearch(@NotNull Collection<Vertex<T>> subset) {
+        HashSet<Vertex<T>> visited = new HashSet<>();
         if (!subset.isEmpty()) {
-            Deque<Vertex> queue = new LinkedList<>();
-            Vertex start = subset.iterator().next();
+            Deque<Vertex<T>> queue = new LinkedList<>();
+            Vertex<T> start = subset.iterator().next();
             queue.push(start);
             while (!queue.isEmpty()) {
-                Vertex current = queue.poll();
+                Vertex<T> current = queue.poll();
                 visited.add(current);
                 current.neighbours.forEach(neighbour -> {
                     if (isInSubsetNotVisited(subset, neighbour, visited)) {
@@ -541,7 +588,7 @@ public class Graph {
      * @return {@code true} if vertex is in the subset and was not already visited, {@code false} otherwise.
      * @since 1.1
      */
-    private static boolean isInSubsetNotVisited(@NotNull Collection<Vertex> subset, Vertex vertex, HashSet<Vertex> visited) {
+    private boolean isInSubsetNotVisited(@NotNull Collection<Vertex<T>> subset, Vertex<T> vertex, HashSet<Vertex<T>> visited) {
         return isVertexOfSubGraph(subset, vertex) && !isVertexOfSubGraph(visited, vertex);
     }
 
@@ -554,15 +601,15 @@ public class Graph {
      * @see #breadthFirstSearch(Collection)
      * @since 1.0-beta
      */
-    private int depthFirstSearch(@NotNull Collection<Vertex> subset) {
-        HashSet<Vertex> visited = new HashSet<>();
+    private int depthFirstSearch(@NotNull Collection<Vertex<T>> subset) {
+        HashSet<Vertex<T>> visited = new HashSet<>();
         if (!subset.isEmpty()) {
-            Deque<Vertex> stack = new LinkedList<>();
-            Vertex start = subset.iterator().next();
+            Deque<Vertex<T>> stack = new LinkedList<>();
+            Vertex<T> start = subset.iterator().next();
             stack.push(start);
             visited.add(start);
             while (!stack.isEmpty()) {
-                Vertex current = stack.pop();
+                Vertex<T> current = stack.pop();
                 current.neighbours.forEach(neighbour -> {
                     if (isInSubsetNotVisited(subset, neighbour, visited)) {
                         stack.push(neighbour);
@@ -594,7 +641,7 @@ public class Graph {
      * @since 1.0-beta
      */
     public boolean doInduceConnectedSubGraph(Collection<Integer> subset) throws NegativeVertexIndexException, NoSuchVertexIndexException {
-        Collection<Vertex> vertices = mapIndexesToVertices(subset);
+        Collection<Vertex<T>> vertices = mapIndexesToVertices(subset);
         return isConnectedSubGraph(vertices);
     }
 
@@ -606,7 +653,7 @@ public class Graph {
      * @see #isConnected()
      * @since 1.0-beta
      */
-    private boolean isConnectedSubGraph(Collection<Vertex> subset) {
+    private boolean isConnectedSubGraph(Collection<Vertex<T>> subset) {
         return depthFirstSearch(subset) == subset.size();
     }
 
@@ -617,8 +664,8 @@ public class Graph {
      * @since 1.0
      */
     public boolean isComplete() {
-        ArrayList<Vertex> allVertices = new ArrayList<>(this.itsVertices);
-        for (Vertex v : this.itsVertices) {
+        ArrayList<Vertex<T>> allVertices = new ArrayList<>(this.itsVertices);
+        for (Vertex<T> v : this.itsVertices) {
             boolean containsEveryOther = new HashSet<>(v.neighbours).containsAll(allVertices.stream()
                     .filter(vertex -> !vertex.equals(v))
                     .collect(Collectors.toList()));
@@ -648,7 +695,7 @@ public class Graph {
      * @since 1.0
      */
     public boolean doInduceBipartiteSubGraph(@NotNull Collection<Integer> subset) throws NegativeVertexIndexException, NoSuchVertexIndexException {
-        Collection<Vertex> vertices = mapIndexesToVertices(subset);
+        Collection<Vertex<T>> vertices = mapIndexesToVertices(subset);
         return isBipartiteSubGraph(vertices);
     }
 
@@ -659,19 +706,19 @@ public class Graph {
      * @return {@code true} if given {@code Collection} induces bipartite subgraph of this graph, {@code false} otherwise.
      * @since 1.0
      */
-    private boolean isBipartiteSubGraph(@NotNull Collection<Vertex> subset) {
+    private boolean isBipartiteSubGraph(@NotNull Collection<Vertex<T>> subset) {
         if (!subset.isEmpty()) {
-            HashMap<Vertex, Integer> coloredVertices =
+            HashMap<Vertex<T>, Integer> coloredVertices =
                     subset.stream()
                             .collect(Collectors.toMap(Function.identity(), vertex -> -1,
                                     (integer1, integer2) -> integer2, HashMap::new));
-            Deque<Vertex> queue = new LinkedList<>();
-            Vertex first = subset.iterator().next();
+            Deque<Vertex<T>> queue = new LinkedList<>();
+            Vertex<T> first = subset.iterator().next();
             queue.add(first);
             coloredVertices.put(first, 1);
             while (!queue.isEmpty()) {
-                Vertex v = queue.poll();
-                for (Vertex neighbour : v.neighbours) {
+                Vertex<T> v = queue.poll();
+                for (Vertex<T> neighbour : v.neighbours) {
                     if (isVertexOfSubGraph(subset, neighbour) && coloredVertices.get(neighbour) == -1) {
                         coloredVertices.put(neighbour, 1 - coloredVertices.get(v));
                         queue.add(neighbour);
@@ -696,7 +743,7 @@ public class Graph {
      * @since 1.0-beta
      */
     public boolean isCDS(Collection<Integer> subset) throws NegativeVertexIndexException, NoSuchVertexIndexException {
-        Collection<Vertex> vertices = mapIndexesToVertices(subset);
+        Collection<Vertex<T>> vertices = mapIndexesToVertices(subset);
         if (isConnectedSubGraph(vertices)) {
             return this.itsVertices.stream()
                     .noneMatch(v -> !isVertexOfSubGraph(vertices, v) &&
@@ -715,7 +762,7 @@ public class Graph {
      * @since 1.0
      */
     public boolean isIndependentSet(Collection<Integer> subset) throws NegativeVertexIndexException, NoSuchVertexIndexException {
-        Collection<Vertex> vertices = mapIndexesToVertices(subset);
+        Collection<Vertex<T>> vertices = mapIndexesToVertices(subset);
         return depthFirstSearch(vertices) == 1;
     }
 
@@ -745,14 +792,14 @@ public class Graph {
      * @see #findMCDS()
      * @since 1.0-beta
      */
-    private @NotNull Collection<Vertex> computeMCDS() {
-        List<Vertex> currentMinCDS = new ArrayList<>(this.itsVertices);
-        List<Vertex> fixedVertices = new ArrayList<>();
-        HashMap<Vertex, Integer> nonFixed = currentMinCDS.stream()
+    private @NotNull Collection<Vertex<T>> computeMCDS() {
+        List<Vertex<T>> currentMinCDS = new ArrayList<>(this.itsVertices);
+        List<Vertex<T>> fixedVertices = new ArrayList<>();
+        HashMap<Vertex<T>, Integer> nonFixed = currentMinCDS.stream()
                 .collect(Collectors.toMap(Function.identity(), Vertex::getDegree,
                         (integer1, integer2) -> integer2, HashMap::new));
         while (!nonFixed.isEmpty()) {
-            Vertex u = nonFixed.keySet().stream()
+            Vertex<T> u = nonFixed.keySet().stream()
                     .min(Comparator.comparingInt(nonFixed::get))
                     .orElseThrow();
             nonFixed.remove(u);
@@ -762,13 +809,13 @@ public class Graph {
                 fixedVertices.add(u);
             } else {
                 boolean intersection = false;
-                for (Vertex neighbour : u.neighbours) {
+                for (Vertex<T> neighbour : u.neighbours) {
                     nonFixed.computeIfPresent(neighbour, (vertex, degree) -> --degree);
                     if (!intersection && isVertexOfSubGraph(fixedVertices, neighbour))
                         intersection = true;
                 }
                 if (!intersection) {
-                    Optional<Vertex> w = u.neighbours.stream()
+                    Optional<Vertex<T>> w = u.neighbours.stream()
                             .filter(currentMinCDS::contains)
                             .max(Comparator.comparingInt(nonFixed::get));
                     w.ifPresent(vertex -> {
@@ -807,17 +854,17 @@ public class Graph {
      * @see #findMDS()
      * @since 1.0
      */
-    private @NotNull Collection<Vertex> computeMDS() {
-        List<Vertex> minimalDS = new ArrayList<>();
-        List<Vertex> whiteNodes = new ArrayList<>(this.itsVertices);
+    private @NotNull Collection<Vertex<T>> computeMDS() {
+        List<Vertex<T>> minimalDS = new ArrayList<>();
+        List<Vertex<T>> whiteNodes = new ArrayList<>(this.itsVertices);
         while (!whiteNodes.isEmpty()) {
-            Vertex v = whiteNodes.stream()
+            Vertex<T> v = whiteNodes.stream()
                     .max(Comparator.comparingInt(vertex -> (int) vertex.neighbours.stream()
                             .filter(alreadyAdded -> !isVertexOfSubGraph(minimalDS, alreadyAdded))
                             .count()))
                     .orElseThrow();
             minimalDS.add(v);
-            for (Vertex vertex : v.neighbours) {
+            for (Vertex<T> vertex : v.neighbours) {
                 whiteNodes.remove(vertex);
             }
             whiteNodes.remove(v);
@@ -852,16 +899,16 @@ public class Graph {
      * @see #findMIS()
      * @since 1.0
      */
-    private @NotNull Collection<Vertex> computeMIS() {
-        List<Vertex> maximalIS = new ArrayList<>();
-        List<Vertex> leftVertices = new ArrayList<>(this.itsVertices);
+    private @NotNull Collection<Vertex<T>> computeMIS() {
+        List<Vertex<T>> maximalIS = new ArrayList<>();
+        List<Vertex<T>> leftVertices = new ArrayList<>(this.itsVertices);
         while (!leftVertices.isEmpty()) {
-            Vertex v = leftVertices.stream()
+            Vertex<T> v = leftVertices.stream()
                     .filter(u -> !isVertexOfSubGraph(maximalIS, u))
                     .min(Comparator.comparingInt(Vertex::getDegree))
                     .orElseThrow();
             maximalIS.add(v);
-            for (Vertex neighbour : v.neighbours) {
+            for (Vertex<T> neighbour : v.neighbours) {
                 leftVertices.remove(neighbour);
             }
             leftVertices.remove(v);
@@ -878,7 +925,7 @@ public class Graph {
      * @throws NoSuchVertexIndexException   if given {@code Collection} contains number that could not be identified with any vertex index.
      * @since 1.0-beta
      */
-    private @NotNull Collection<Vertex> mapIndexesToVertices(@NotNull Collection<Integer> indexes) throws NegativeVertexIndexException, NoSuchVertexIndexException {
+    private @NotNull Collection<Vertex<T>> mapIndexesToVertices(@NotNull Collection<Integer> indexes) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         return indexes.stream()
                 .map(this::getVertex)
                 .collect(Collectors.toList());
@@ -892,7 +939,7 @@ public class Graph {
      * @see Collections#unmodifiableSortedSet(SortedSet)
      * @since 1.0
      */
-    private @NotNull @UnmodifiableView Set<Integer> mapVerticesToIndexes(@NotNull Collection<Vertex> vertices) {
+    private @NotNull @UnmodifiableView Set<Integer> mapVerticesToIndexes(@NotNull Collection<Vertex<T>> vertices) {
         return Collections.unmodifiableSortedSet(vertices.stream()
                 .mapToInt(Vertex::getIndex)
                 .boxed()
@@ -905,11 +952,11 @@ public class Graph {
      * It displays in following pattern:
      * </p>
      * <pre>
-     * {@code <optional>int [<optional>int, ..., <optional>int]}
+     * {@code <optional>int -> [<optional>int, ..., <optional>int], content: T}
      * .
      * .
      * .
-     * {@code <optional>int [<optional>int, ..., <optional>int]}</pre>
+     * {@code <optional>int -> [<optional>int, ..., <optional>int], content: T}</pre>
      *
      * @return user-friendly representation of this graph.
      * @since 1.0-beta
@@ -918,9 +965,10 @@ public class Graph {
     public String toString() {
         return this.itsVertices.stream()
                 .sorted(Comparator.comparingInt(Vertex::getIndex))
-                .map(vertex -> vertex + " " + vertex.neighbours.stream()
+                .map(vertex -> vertex + " -> " + vertex.neighbours.stream()
                         .sorted(Comparator.comparingInt(Vertex::getIndex))
-                        .collect(Collectors.toUnmodifiableList()))
+                        .collect(Collectors.toUnmodifiableList())
+                        + ", content: " + vertex.element)
                 .collect(Collectors.joining("\n"));
     }
 }

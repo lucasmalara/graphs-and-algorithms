@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class GraphUnitTest {
 
-    private Graph graph;
+    private Graph<Object> graph;
     private final Random random = new Random();
     private static final String RESOURCES_PATH = "src/main/resources/";
 
@@ -32,7 +32,7 @@ class GraphUnitTest {
     void givenFile_WhenInitGraph_ThenSetNonEmpty() {
         final String fileName = "graph_example.txt";
         try {
-            graph = new Graph(RESOURCES_PATH + fileName);
+            graph = new Graph<>(RESOURCES_PATH + fileName);
         } catch (VertexIndexException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -90,7 +90,7 @@ class GraphUnitTest {
         @BeforeEach
         @DisplayName("Creating empty graph.")
         void whenInitGraph_ThenSetEmpty() {
-            graph = new Graph();
+            graph = new Graph<>();
         }
 
         @Test
@@ -184,7 +184,7 @@ class GraphUnitTest {
         void givenFile_WhenInitGraph_ThenSetBipartite() {
             final String fileName = "bipartite_graph.txt";
             try {
-                graph = new Graph(RESOURCES_PATH + fileName);
+                graph = new Graph<>(RESOURCES_PATH + fileName);
             } catch (VertexIndexException e) {
                 System.out.println(e.getMessage());
             }
@@ -215,7 +215,7 @@ class GraphUnitTest {
         @DisplayName("Checking if graph is complete.")
         void givenCompleteGraph_WhenIsComplete_ThenReturnTrue(int size) {
             final int startIndex = random.nextInt(2);
-            graph = Graph.complete(startIndex, size);
+            graph = new Graph<>().complete(startIndex, size);
             assertAll(() -> {
                 assertNotNull(graph);
                 assertTrue(graph.isConnected());
@@ -228,7 +228,7 @@ class GraphUnitTest {
         @DisplayName("Checking if found proper minimal connected dominating set in a complete graph.")
         void givenPositiveNumberOfVertices_WhenComputingMCDSInCompleteGraph_ThenReturnSizeOfComputedSet(int size) {
             int randomStartIndex = random.nextInt(9);
-            graph = Graph.complete(randomStartIndex, size);
+            graph = new Graph<>().complete(randomStartIndex, size);
             assertAll(() -> {
                 int computed = graph.findMCDS().size();
                 if (size == 0)
@@ -243,7 +243,7 @@ class GraphUnitTest {
         @DisplayName("Checking if found proper minimal dominating set in a complete graph.")
         void givenPositiveNumberOfVertices_WhenComputingMDSInCompleteGraph_ThenReturnSizeOfComputedSet(int size) {
             int randomStartIndex = random.nextInt(9);
-            graph = Graph.complete(randomStartIndex, size);
+            graph = new Graph<>().complete(randomStartIndex, size);
             assertAll(() -> {
                 int computed = graph.findMDS().size();
                 if (size == 0)
@@ -258,7 +258,7 @@ class GraphUnitTest {
         @DisplayName("Checking if found proper maximal independent set in a complete graph.")
         void givenPositiveNumberOfVertices_WhenComputingMISInCompleteGraph_ThenReturnSizeOfComputedSet(int size) {
             int randomStartIndex = random.nextInt(9);
-            graph = Graph.complete(randomStartIndex, size);
+            graph = new Graph<>().complete(randomStartIndex, size);
             assertAll(() -> {
                 int computed = graph.findMIS().size();
                 if (size == 0)
