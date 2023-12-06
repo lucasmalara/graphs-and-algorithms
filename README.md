@@ -12,6 +12,7 @@
 - `v1.0` 
 - `v1.1`
 - `v1.2` - Latest stable release &bull; [**What's new?**](https://github.com/lucasmalara/graphs-and-algorithms/releases/tag/v1.2)
+- `v2.0` - Current unstable
 
 ## Goal
 
@@ -52,13 +53,15 @@ The project was focused on:
 - Create an empty graph (_order-zero graph / null graph_)
 - Create a graph from given file
 - Create a complete graph (including an _empty_)
-- Display graph structure (all vertices and for each their [open] neighbourhood list)
-- Get all vertices of the  graph
+- Display graph structure (all vertices and for each their [open] neighbourhood list and stored data)
+- Get all vertices of the graph
 - Get neighbours of given vertex
-- Add singular vertex to the graph
+- Get data stored in given vertex
+- Set data stored in given vertex
+- Add singular vertex to the graph (with or without stored data)
 - Add multiple vertices to the graph
 - Remove singular vertex from the graph
-- Remove multiple vertices from graph
+- Remove multiple vertices from the graph
 - Connect vertices
 - Disconnect vertices
 - Check if graph contains given vertex or vertices
@@ -82,7 +85,7 @@ To run this project, it is recommended to add an **environment variable** to the
 and set its value to `true` or `false` - depending on wanted behaviour.
 
 ```
-if(ALLOW) -> runs basic and com.graphs.exceptions test of the Graph implementation
+if(ALLOW) -> runs basic and exceptions test of the Graph implementation
 else -> runs only basic test of Graph implementation
 ```
 
