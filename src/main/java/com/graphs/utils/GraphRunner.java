@@ -30,7 +30,11 @@ public class GraphRunner {
      * This field holds instance of {@link Graph}.
      *
      * @since 1.0
+     * @deprecated This field should be no longer to use for holding an instance of Graph,
+     * since introducing parametrizing in {@code 2.0} required to test Graph with different types,
+     * which means having more variables with method level scope.
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static Graph<Object> graph = new Graph<>();
 
     /**
