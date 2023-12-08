@@ -24,18 +24,11 @@ public class GraphProducer<T> {
     private final GraphPrinter<T> graphPrinter = new GraphPrinter<>();
 
     /**
-     * This field stores path to resources directory.
+     * This field stores names of available files in {@link FileFinder#RESOURCES_PATH} directory.
      *
      * @since 1.0
      */
-    private static final String RESOURCES_PATH = "src/main/resources/";
-
-    /**
-     * This field stores names of available files in {@link #RESOURCES_PATH} directory.
-     *
-     * @since 1.0
-     */
-    private static final String[] AVAILABLE_FILES = FileFinder.findAvailableFiles(RESOURCES_PATH);
+    private static final String[] AVAILABLE_FILES = FileFinder.findAvailableFiles(FileFinder.RESOURCES_PATH);
 
     /**
      * This method returns optional graph based on a structure defined in a file given as a parameter.
@@ -48,7 +41,7 @@ public class GraphProducer<T> {
     public Optional<Graph<T>> newGraphFromFile(String file) throws NegativeVertexIndexException {
         for (String filesName : AVAILABLE_FILES) {
             if (Objects.equals(filesName, file)) {
-                Graph<T> fromFile = new Graph<>(RESOURCES_PATH + file);
+                Graph<T> fromFile = new Graph<>(FileFinder.RESOURCES_PATH + file);
                 graphPrinter.printWhenGraphIsNotNull(fromFile, "Graph has been created from the file.");
                 return Optional.of(fromFile);
             }

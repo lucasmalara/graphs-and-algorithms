@@ -224,15 +224,22 @@ public class GraphRunner {
      * @since 1.0
      */
     private static void initRunExceptions() {
-        System.out.println("\n" + SEPARATOR + " START OF AN EXCEPTION TEST " + SEPARATOR);
-        Graph<Object> suspiciousGraph;
+        PrettierPrinter.newLine();
+        PrettierPrinter.printHeader("START OF AN EXCEPTION TEST");
+
         new Graph<String>("/");
-        new Graph<Integer>(RESOURCES_PATH);
-        new Graph<>(RESOURCES_PATH + ".txt");
-        new Graph<Boolean>(RESOURCES_PATH + TRICKY_FILE_NAME);
-        suspiciousGraph = new Graph<>();
-        suspiciousGraph.addNewVertex(1);
-        suspiciousGraph.addNewVertex(2);
+        new Graph<Integer>(FileFinder.RESOURCES_PATH);
+        new Graph<>(FileFinder.RESOURCES_PATH + ".txt");
+        new Graph<Boolean>(FileFinder.RESOURCES_PATH + FileFinder.TRICKY_FILE_NAME);
+
+        PrettierPrinter.newLine();
+
+        GraphProducer<String> graphProducer = new GraphProducer<>();
+        Graph<String> suspiciousGraph = graphProducer.newEmptyGraph();
+
+        suspiciousGraph.addNewVertex(1, "Hello");
+        suspiciousGraph.addNewVertex(2, "World");
+
         try {
             suspiciousGraph.areVerticesOfGraph(List.of(1, -1, 2));
         } catch (VertexIndexException e) {
@@ -243,7 +250,8 @@ public class GraphRunner {
         } catch (VertexIndexException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(SEPARATOR + " END OF THE EXCEPTION TEST " + SEPARATOR);
+
+        PrettierPrinter.printFooter("END OF THE EXCEPTION TEST");
     }
 
     /**
