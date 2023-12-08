@@ -4,8 +4,6 @@ import com.graphs.exceptions.vertex.VertexIndexException;
 import com.graphs.struct.Graph;
 import com.graphs.utils.FileFinder;
 import com.graphs.utils.PrettierPrinter;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -19,16 +17,36 @@ import java.util.Random;
  * @version JDK 1.7
  * @since 1.0
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class GraphRunner {
+public class GraphRunner implements Runnable {
+
+    private final boolean allowExceptions;
+
+    /**
+     * This constructor create runner class of {@link Graph}.
+     *
+     * @since 1.0
+     */
+    public GraphRunner() {
+        this(false);
+    }
+
+    /**
+     * This constructor create runner class of {@link Graph}.
+     *
+     * @param allowExceptions if {@code true} run exceptions test as well, if {@code false} run basic test only.
+     * @since 2.0
+     */
+    public GraphRunner(boolean allowExceptions) {
+        this.allowExceptions = allowExceptions;
+    }
 
     /**
      * This method runs a test of {@link Graph} class behaviour.
      *
-     * @param allowExceptions if {@code true} run exceptions test as well, if {@code false} run basic test only.
      * @since 1.0
      */
-    public static void run(boolean allowExceptions) {
+    @Override
+    public void run() {
         initRun();
         if (allowExceptions) initRunExceptions();
     }
