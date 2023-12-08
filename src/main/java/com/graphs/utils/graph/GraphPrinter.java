@@ -181,6 +181,7 @@ public class GraphPrinter<T> {
         System.out.println("Set new data.");
         T updatedData = graph.getVertexData(index);
         System.out.println("Data stored in vertex indexed by " + index + ": " + updatedData);
+        PrettierPrinter.printlnSeparator();
         return graph;
     }
 
