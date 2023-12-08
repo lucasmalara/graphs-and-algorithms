@@ -47,6 +47,7 @@ public class GraphPrinter<T> {
         else
             System.out.printf(baseMessage, ifFalse);
         PrettierPrinter.newLine();
+        PrettierPrinter.printlnSeparator();
     }
 
     /**
@@ -246,7 +247,6 @@ public class GraphPrinter<T> {
         boolean cds = graph.isCDS(vertices);
         String message = vertices + " %s " + "connected dominating set.";
         printConditionalMessage(cds, message, MessageProvider.IS, MessageProvider.IS_NOT);
-        PrettierPrinter.printlnSeparator();
     }
 
     /**
@@ -261,7 +261,6 @@ public class GraphPrinter<T> {
         boolean is = graph.isIndependentSet(vertices);
         String message = vertices + " %s " + "independent set.";
         printConditionalMessage(is, message, MessageProvider.IS, MessageProvider.IS_NOT);
-        PrettierPrinter.printlnSeparator();
     }
 
     /**
@@ -274,7 +273,6 @@ public class GraphPrinter<T> {
         boolean bipartite = graph.isBipartite();
         String message = "Graph %s bipartite.";
         printConditionalMessage(bipartite, message, MessageProvider.IS, MessageProvider.IS_NOT);
-        PrettierPrinter.printlnSeparator();
     }
 
     /**
@@ -290,7 +288,6 @@ public class GraphPrinter<T> {
         boolean induces = graph.doInduceBipartiteSubGraph(vertices);
         String message = vertices + " %s bipartite subgraph.";
         doInduceConditionalMessage(induces, message);
-        PrettierPrinter.printlnSeparator();
     }
 
 
@@ -306,6 +303,5 @@ public class GraphPrinter<T> {
         boolean induces = graph.doInduceConnectedSubGraph(vertices);
         String message = vertices + " %s connected subgraph.";
         doInduceConditionalMessage(induces, message);
-        PrettierPrinter.printlnSeparator();
     }
 }
