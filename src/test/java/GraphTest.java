@@ -37,7 +37,7 @@ class GraphTest {
         return RANDOM.nextInt(Integer.MAX_VALUE);
     }
 
-    @BeforeAll
+    @BeforeEach
     @DisplayName("Creating a non-empty graph from a text file.")
     void givenFile_WhenInitGraph_ThenSetNonEmpty() {
         final String fileName = "graph_example.txt";
