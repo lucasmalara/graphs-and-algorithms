@@ -3,6 +3,7 @@ package com.graphs.struct;
 import com.graphs.exceptions.vertex.NegativeVertexIndexException;
 import com.graphs.exceptions.vertex.NoSuchVertexIndexException;
 import com.graphs.exceptions.vertex.VertexIndexException;
+import com.graphs.utils.MessageProvider;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,9 +20,6 @@ import java.io.IOException;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import static com.graphs.utils.GraphRunner.IO_EXC_MSG;
-import static com.graphs.utils.GraphRunner.NUMBER_FORMAT_EXC_MSG;
 
 /**
  * This class implements undirected unweighted graphs.
@@ -225,9 +223,9 @@ public class Graph<T> {
                 }
             }
         } catch (IOException e) {
-            System.out.println(IO_EXC_MSG + e.getMessage());
+            System.out.println(MessageProvider.IO_EXC_MSG + e.getMessage());
         } catch (NumberFormatException e) {
-            System.out.println(NUMBER_FORMAT_EXC_MSG + e.getMessage());
+            System.out.println(MessageProvider.NUMBER_FORMAT_EXC_MSG + e.getMessage());
         }
     }
 
