@@ -4,6 +4,7 @@ import com.graphs.exceptions.vertex.NegativeVertexIndexException;
 import com.graphs.struct.Graph;
 import com.graphs.utils.FileFinder;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -29,7 +30,7 @@ public class GraphProducer<T> {
      *
      * @since 1.0
      */
-    private static final String[] AVAILABLE_FILES = FileFinder.findAvailableFiles(FileFinder.RESOURCES_PATH);
+    private static final List<String> AVAILABLE_FILES = FileFinder.findAvailableFiles(FileFinder.RESOURCES_PATH);
 
     /**
      * This method returns optional graph based on a structure defined in a file given as a parameter.

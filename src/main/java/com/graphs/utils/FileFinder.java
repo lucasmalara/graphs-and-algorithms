@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -57,17 +59,16 @@ public class FileFinder {
      * @return an {@code array} of available files names.
      * @since 1.0
      */
-    public static String @NotNull [] findAvailableFiles(String dir) {
+    public static List<String> findAvailableFiles(String dir) {
         try (Stream<Path> paths = Files.walk(Paths.get(dir))) {
             return paths.filter(Files::isRegularFile)
                     .map(Path::getFileName)
                     .map(String::valueOf)
                     .filter(fileName -> !TRICKY_FILE_NAME.equals(fileName))
-                    .collect(Collectors.toList())
-                    .toArray(new String[1]);
+                    .toList();
         } catch (IOException e) {
             System.out.println(MessageProvider.IO_EXC_MSG + e.getMessage());
         }
-        return new String[1];
+        return Collections.emptyList();
     }
 }
