@@ -1,9 +1,11 @@
-package com.graphs.utils;
+package com.graphs.utils.graph;
 
 import com.graphs.exceptions.vertex.NegativeVertexIndexException;
 import com.graphs.exceptions.vertex.NoSuchVertexIndexException;
 import com.graphs.exceptions.vertex.VertexIndexException;
 import com.graphs.struct.Graph;
+import com.graphs.utils.FileFinder;
+import com.graphs.utils.PrettierPrinter;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -42,6 +44,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static final String RESOURCES_PATH = "src/main/resources/";
 
     /**
@@ -49,6 +52,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static final String[] AVAILABLE_FILES = findAvailableFiles();
 
     /**
@@ -56,6 +60,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static final String TRICKY_FILE_NAME = "bad_example.txt";
 
     /**
@@ -63,6 +68,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static final String GRAPH_EXAMPLE = "graph_example.txt";
 
     /**
@@ -70,6 +76,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static final String BIPARTITE = "bipartite_graph.txt";
 
     /**
@@ -78,6 +85,7 @@ public class GraphRunner {
      * @see #printSeparator()
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static final String SEPARATOR = "--------------------";
 
     /**
@@ -85,6 +93,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static final String IS_NOT = "is not";
 
     /**
@@ -92,6 +101,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static final String IS = "is";
 
     /**
@@ -99,6 +109,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     public static final String IO_EXC_MSG = "Could not load data from a file from source: ";
 
     /**
@@ -106,6 +117,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     public static final String NUMBER_FORMAT_EXC_MSG = "File contains forbidden character(s). ";
 
     /**
@@ -125,63 +137,84 @@ public class GraphRunner {
      * @since 1.0
      */
     private static void initRun() {
-        System.out.println();
-        System.out.println(SEPARATOR + " START OF A TEST " + SEPARATOR);
+        PrettierPrinter.printHeader("START OF A TEST");
 
-        setGraphFromFile(GRAPH_EXAMPLE);
-        printGraph();
-        printMDS();
-        printMCDS();
-        printMIS();
+        GraphProducer<Boolean> booleanGraphProducer = new GraphProducer<>();
+        Optional<Graph<Boolean>> graphOptional = booleanGraphProducer.newGraphFromFile(FileFinder.GRAPH_EXAMPLE);
+        GraphPrinter<Boolean> booleanGraphPrinter = new GraphPrinter<>();
 
-        System.out.println();
-        setGraphToEmpty();
-        printGraph();
-        printIfVerticesAdded(List.of(1, 2, 3, 4, 5));
-        printGraph();
-        printIfVerticesConnected(1, 3);
-        printSeparator();
-        printIfVerticesConnected(3, 2);
-        printGraph();
-        printIfVerticesDisconnected(3, 1);
-        printGraph();
+        graphOptional.ifPresent(graph -> {
+            booleanGraphPrinter.printGraph(graph);
+            booleanGraphPrinter.printMDS(graph);
+            booleanGraphPrinter.printMCDS(graph);
+            booleanGraphPrinter.printMIS(graph);
+        });
 
-        System.out.println();
-        printGraphComplete();
-        printGraph();
-        printIfVerticesRemoved(List.of(1, 4));
-        printGraph();
-        printIfVerticesDisconnected(2, 5);
-        printGraph();
-        printIsConnectedDominatingSet(List.of(2, 3));
-        printIsConnectedDominatingSet(List.of(2));
+        PrettierPrinter.newLine();
 
-        System.out.println();
-        setGraphFromFile(BIPARTITE);
-        printGraph();
-        printIsBipartite();
-        printIsIndependentSet(List.of(1, 3, 5, 7));
-        printIsIndependentSet(List.of(1, 2));
-        printDoInduceConnectedSubGraph(List.of(1, 2, 3, 4));
-        printDoInduceConnectedSubGraph(List.of(2, 4, 6, 8));
+        GraphProducer<String> stringGraphProducer = new GraphProducer<>();
+        Graph<String> empty = stringGraphProducer.newEmptyGraph();
+        GraphPrinter<String> stringGraphPrinter = new GraphPrinter<>();
 
-        System.out.println();
-        setGraphToEmpty();
-        printSeparator();
-        printIfVerticesAdded(List.of(1, 2, 3, 4));
-        printSeparator();
-        printIfVerticesConnected(4, 1);
-        printSeparator();
-        printIfVerticesConnected(4, 2);
-        printSeparator();
-        printIfVerticesConnected(4, 3);
-        printSeparator();
-        printIfVerticesConnected(2, 3);
-        printGraph();
-        printDoInduceBipartiteSubGraph(List.of(1, 2, 4));
-        printDoInduceBipartiteSubGraph(graph.getVertices());
+        stringGraphPrinter.printGraph(empty);
+        empty = stringGraphPrinter.printIfVerticesAdded(empty, List.of(1, 2, 3, 4, 5));
+        stringGraphPrinter.printGraph(empty);
+        empty = stringGraphPrinter.printIfVerticesConnected(empty, 1, 3);
+        stringGraphPrinter.printGraph(empty);
+        empty = stringGraphPrinter.printIfVerticesConnected(empty, 3, 2);
+        stringGraphPrinter.printGraph(empty);
+        empty = stringGraphPrinter.printIfVerticesConnected(empty, 3, 1);
+        stringGraphPrinter.printGraph(empty);
 
-        System.out.println(SEPARATOR + " END OF THE TEST " + SEPARATOR);
+        PrettierPrinter.newLine();
+
+        GraphProducer<Integer> integerGraphProducer = new GraphProducer<>();
+        Graph<Integer> complete = integerGraphProducer.newCompleteGraph(2, 7);
+        GraphPrinter<Integer> integerGraphPrinter = new GraphPrinter<>();
+
+        integerGraphPrinter.printGraph(complete);
+        complete = integerGraphPrinter.printIfVerticesRemoved(complete, List.of(2, 4));
+        integerGraphPrinter.printGraph(complete);
+        complete = integerGraphPrinter.printIfVerticesDisconnected(complete, 3, 7);
+        integerGraphPrinter.printGraph(complete);
+        integerGraphPrinter.printIsConnectedDominatingSet(complete, List.of(3, 7));
+        integerGraphPrinter.printIsConnectedDominatingSet(complete, List.of(6));
+
+        PrettierPrinter.newLine();
+
+        GraphProducer<Double> doubleGraphProducer = new GraphProducer<>();
+        Optional<Graph<Double>> bipartiteOptional = doubleGraphProducer.newGraphFromFile(FileFinder.BIPARTITE);
+        GraphPrinter<Double> doubleGraphPrinter = new GraphPrinter<>();
+
+        bipartiteOptional.ifPresent(bipartite -> {
+            doubleGraphPrinter.printGraph(bipartite);
+            doubleGraphPrinter.printIsBipartite(bipartite);
+            doubleGraphPrinter.printIsIndependentSet(bipartite, List.of(1, 3, 5, 7));
+            doubleGraphPrinter.printIsIndependentSet(bipartite, List.of(2, 4, 6, 8));
+            doubleGraphPrinter.printDoInduceConnectedSubGraph(bipartite, List.of(1, 2, 3, 4));
+            doubleGraphPrinter.printDoInduceConnectedSubGraph(bipartite, List.of(2, 4, 6, 8));
+        });
+
+        PrettierPrinter.newLine();
+
+        GraphProducer<Character> characterGraphProducer = new GraphProducer<>();
+        Graph<Character> emptyGraphCharacter = characterGraphProducer.newEmptyGraph();
+        GraphPrinter<Character> characterGraphPrinter = new GraphPrinter<>();
+
+        Graph<Character> graphCharacter = characterGraphPrinter.printIfVerticesAdded(emptyGraphCharacter, List.of(1, 2, 3, 4));
+        characterGraphPrinter.printGraph(graphCharacter);
+        graphCharacter = characterGraphPrinter.printIfVerticesConnected(graphCharacter, 4, 1);
+        characterGraphPrinter.printGraph(graphCharacter);
+        graphCharacter = characterGraphPrinter.printIfVerticesConnected(graphCharacter, 4, 2);
+        characterGraphPrinter.printGraph(graphCharacter);
+        graphCharacter = characterGraphPrinter.printIfVerticesConnected(graphCharacter, 4, 3);
+        characterGraphPrinter.printGraph(graphCharacter);
+        graphCharacter = characterGraphPrinter.printIfVerticesConnected(graphCharacter, 2, 3);
+        characterGraphPrinter.printGraph(graphCharacter);
+        characterGraphPrinter.printDoInduceBipartiteSubGraph(graphCharacter, List.of(1, 2, 4));
+        characterGraphPrinter.printDoInduceBipartiteSubGraph(graphCharacter, graphCharacter.getVertices());
+
+        PrettierPrinter.printFooter("END OF THE TEST");
     }
 
     /**
@@ -219,6 +252,7 @@ public class GraphRunner {
      * @return an {@code array} of available files names.
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static String @NotNull [] findAvailableFiles() {
         try (Stream<Path> paths = Files.walk(Paths.get(RESOURCES_PATH))) {
             return paths.filter(Files::isRegularFile)
@@ -242,6 +276,7 @@ public class GraphRunner {
      * @param ifFalse     message that is printed if condition is unsatisfied.
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printConditionalMessage(boolean condition, String baseMessage, String ifTrue, String ifFalse) {
         if (condition)
             System.out.printf(baseMessage, ifTrue);
@@ -256,27 +291,32 @@ public class GraphRunner {
      * @see #SEPARATOR
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printSeparator() {
         System.out.println(SEPARATOR);
     }
 
     /**
-     * This method sets {@link #graph} based on a structure defined in a file given as a parameter.
+     * This method returns optional graph based on a structure defined in a file given as a parameter.
      *
      * @param file name of a file containing graph structure definition.
+     * @return optional of graph
      * @throws NegativeVertexIndexException if file contains negative number(s).
      * @since 1.0
+     * @see Optional
      */
-    private static void setGraphFromFile(String file) throws NegativeVertexIndexException {
+    @Deprecated(since = "2.0", forRemoval = true)
+    private static Optional<Graph<Boolean>> setGraphFromFile(String file) throws NegativeVertexIndexException {
         for (String filesName : AVAILABLE_FILES) {
             if (Objects.equals(filesName, file)) {
-                graph = new Graph<>(RESOURCES_PATH + file);
+                Graph<Boolean> fromFile = new Graph<>(RESOURCES_PATH + file);
                 System.out.println("Graph has been created from the file.");
                 // if graph is initialized, exit the method
-                return;
+                return Optional.of(fromFile);
             }
         }
         System.out.println("Could not find the file to create graph.");
+        return Optional.empty();
     }
 
     /**
@@ -284,6 +324,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void setGraphToEmpty() {
         graph = new Graph<>();
         System.out.println("Graph is now empty.");
@@ -294,6 +335,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printGraph() {
         printSeparator();
         System.out.println("Graph: ");
@@ -308,6 +350,7 @@ public class GraphRunner {
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printIfVerticesAdded(Collection<Integer> vertices) throws NegativeVertexIndexException {
         boolean added = graph.addNewVertices(vertices);
         if (added) System.out.println("Vertices: " + vertices + " has been added.");
@@ -321,6 +364,7 @@ public class GraphRunner {
      * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of {@link #graph}.
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printIfVerticesRemoved(Collection<Integer> vertices) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         graph.removeVertices(vertices);
         System.out.println("Vertices: " + vertices + " has been removed.");
@@ -335,6 +379,7 @@ public class GraphRunner {
      * @throws NoSuchVertexIndexException   if {@link #graph} does not contain either vertices with indexes type {@code int} given as a parameter.
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printIfVerticesConnected(int indexI, int indexJ) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         boolean connected = graph.connectVertices(indexI, indexJ);
         if (connected) System.out.println("Vertices " + indexI + " and " + indexJ + " are adjacent now.");
@@ -349,6 +394,7 @@ public class GraphRunner {
      * @throws NoSuchVertexIndexException   if {@link #graph} does not contain either vertices with indexes type {@code int} given as a parameter.
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printIfVerticesDisconnected(int indexI, int indexJ) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         boolean disconnected = graph.disconnectVertices(indexI, indexJ);
         if (disconnected) System.out.println("Vertices " + indexI + " and " + indexJ + " are disconnected now.");
@@ -359,6 +405,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printGraphComplete() {
         graph.mapToComplete();
         System.out.println("Graph is now complete.");
@@ -369,6 +416,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printMDS() {
         Set<Integer> mds = graph.findMDS();
         System.out.println("Computed minimal dominating set: ");
@@ -381,6 +429,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printMCDS() {
         Set<Integer> mcds = graph.findMCDS();
         System.out.println("Computed minimal connected dominating set: ");
@@ -393,6 +442,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printMIS() {
         Set<Integer> mis = graph.findMIS();
         System.out.println("Computed maximal independent set: ");
@@ -408,6 +458,7 @@ public class GraphRunner {
      * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of {@link #graph}.
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printIsConnectedDominatingSet(Collection<Integer> vertices) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         boolean cds = graph.isCDS(vertices);
         String message = vertices + " %s " + "connected dominating set.";
@@ -423,6 +474,7 @@ public class GraphRunner {
      * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of {@link #graph}.
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printIsIndependentSet(Collection<Integer> vertices) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         boolean is = graph.isIndependentSet(vertices);
         String message = vertices + " %s " + "independent set.";
@@ -435,6 +487,7 @@ public class GraphRunner {
      *
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printIsBipartite() {
         boolean bipartite = graph.isBipartite();
         String message = "Graph %s bipartite.";
@@ -450,6 +503,7 @@ public class GraphRunner {
      * @see #printConditionalMessage(boolean, String, String, String)
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void doInducePatternMessage(boolean induces, String baseMessage) {
         printConditionalMessage(induces, baseMessage, "induce", "do not induce");
     }
@@ -462,6 +516,7 @@ public class GraphRunner {
      * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of {@link #graph}.
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printDoInduceConnectedSubGraph(Collection<Integer> vertices) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         boolean induces = graph.doInduceConnectedSubGraph(vertices);
         String message = vertices + " %s connected subgraph.";
@@ -477,6 +532,7 @@ public class GraphRunner {
      * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of {@link #graph}.
      * @since 1.0
      */
+    @Deprecated(since = "2.0", forRemoval = true)
     private static void printDoInduceBipartiteSubGraph(Collection<Integer> vertices) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         boolean induces = graph.doInduceBipartiteSubGraph(vertices);
         String message = vertices + " %s bipartite subgraph.";

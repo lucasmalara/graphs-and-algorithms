@@ -3,7 +3,7 @@ package com.graphs;
 import com.graphs.struct.Graph;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import com.graphs.utils.GraphRunner;
+import com.graphs.utils.graph.GraphRunner;
 
 /**
  * Main class for testing {@link Graph} class using {@link GraphRunner} implementation.
