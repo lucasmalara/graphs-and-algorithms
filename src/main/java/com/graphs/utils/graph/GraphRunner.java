@@ -7,15 +7,17 @@ import com.graphs.utils.PrettierPrinter;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 /**
  * This class implements testing behaviour of {@link Graph} class.
  *
  * @author Łukasz Malara
- * @since 1.0
  * @version JDK 1.7
+ * @since 1.0
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GraphRunner {
@@ -48,6 +50,12 @@ public class GraphRunner {
             booleanGraphPrinter.printMDS(graph);
             booleanGraphPrinter.printMCDS(graph);
             booleanGraphPrinter.printMIS(graph);
+            graph.getVertices()
+                    .forEach(index -> {
+                        boolean isIndexEvenNumber = index % 2 == 0;
+                        booleanGraphPrinter.printIfSetVertexData(graph, index, isIndexEvenNumber);
+                    });
+            booleanGraphPrinter.printGraph(graph);
         });
 
         PrettierPrinter.newLine();
@@ -57,14 +65,19 @@ public class GraphRunner {
         GraphPrinter<String> stringGraphPrinter = new GraphPrinter<>();
 
         stringGraphPrinter.printGraph(empty);
-        empty = stringGraphPrinter.printIfVerticesAdded(empty, List.of(1, 2, 3, 4, 5));
-        stringGraphPrinter.printGraph(empty);
-        empty = stringGraphPrinter.printIfVerticesConnected(empty, 1, 3);
-        stringGraphPrinter.printGraph(empty);
-        empty = stringGraphPrinter.printIfVerticesConnected(empty, 3, 2);
-        stringGraphPrinter.printGraph(empty);
-        empty = stringGraphPrinter.printIfVerticesConnected(empty, 3, 1);
-        stringGraphPrinter.printGraph(empty);
+        Graph<String> stringGraph = stringGraphPrinter.printIfVerticesAdded(empty, List.of(1, 2, 3, 4, 5));
+        stringGraphPrinter.printGraph(stringGraph);
+        stringGraph = stringGraphPrinter.printIfVerticesConnected(stringGraph, 1, 3);
+        stringGraphPrinter.printGraph(stringGraph);
+        stringGraph = stringGraphPrinter.printIfVerticesConnected(stringGraph, 3, 2);
+        stringGraphPrinter.printGraph(stringGraph);
+        stringGraph = stringGraphPrinter.printIfVerticesConnected(stringGraph, 3, 1);
+        stringGraphPrinter.printGraph(stringGraph);
+        for (Integer index : stringGraph.getVertices()) {
+            String message = LocalTime.now().toString();
+            stringGraphPrinter.printIfSetVertexData(stringGraph, index, message);
+        }
+        stringGraphPrinter.printGraph(stringGraph);
 
         PrettierPrinter.newLine();
 
@@ -79,6 +92,11 @@ public class GraphRunner {
         integerGraphPrinter.printGraph(complete);
         integerGraphPrinter.printIsConnectedDominatingSet(complete, List.of(3, 7));
         integerGraphPrinter.printIsConnectedDominatingSet(complete, List.of(6));
+        Random random = new Random();
+        for (Integer index : complete.getVertices()) {
+            integerGraphPrinter.printIfSetVertexData(complete, index, random.nextInt());
+        }
+        integerGraphPrinter.printGraph(complete);
 
         PrettierPrinter.newLine();
 
@@ -93,6 +111,9 @@ public class GraphRunner {
             doubleGraphPrinter.printIsIndependentSet(bipartite, List.of(2, 4, 6, 8));
             doubleGraphPrinter.printDoInduceConnectedSubGraph(bipartite, List.of(1, 2, 3, 4));
             doubleGraphPrinter.printDoInduceConnectedSubGraph(bipartite, List.of(2, 4, 6, 8));
+            bipartite.getVertices()
+                    .forEach(index -> doubleGraphPrinter.printIfSetVertexData(bipartite, index, Math.random()));
+            doubleGraphPrinter.printGraph(bipartite);
         });
 
         PrettierPrinter.newLine();
@@ -113,6 +134,11 @@ public class GraphRunner {
         characterGraphPrinter.printGraph(graphCharacter);
         characterGraphPrinter.printDoInduceBipartiteSubGraph(graphCharacter, List.of(1, 2, 4));
         characterGraphPrinter.printDoInduceBipartiteSubGraph(graphCharacter, graphCharacter.getVertices());
+        for (Integer index : graphCharacter.getVertices()) {
+            char c = (char) (random.nextInt(26) + 'a');
+            characterGraphPrinter.printIfSetVertexData(graphCharacter, index, c);
+        }
+        characterGraphPrinter.printGraph(graphCharacter);
 
         PrettierPrinter.printFooter("END OF THE TEST");
     }
