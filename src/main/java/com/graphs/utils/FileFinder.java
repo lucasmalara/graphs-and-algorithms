@@ -55,6 +55,7 @@ public class FileFinder {
     /**
      * This method finds names of every available file in given directory.
      *
+     * @param dir directory to scan through.
      * @return an {@code array} of available files names.
      * @since 1.0
      */

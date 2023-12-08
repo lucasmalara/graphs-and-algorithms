@@ -190,7 +190,8 @@ public class GraphPrinter<T> {
      * and returns that graph.
      *
      * @param graph    a graph to remove vertices from.
-     * @param vertices {@code Collection} of a vertices indexes to remove from giveng raph.
+     * @param vertices {@code Collection} of a vertices indexes to remove from given graph.
+     * @return given graph.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
      * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of given graph.
      * @since 1.0
@@ -206,8 +207,9 @@ public class GraphPrinter<T> {
      * and returns that graph.
      *
      * @param graph  a graph to connect vertices of.
-     * @param indexI index of a vertex
-     * @param indexJ index of another vertex
+     * @param indexI numerical index of a vertex.
+     * @param indexJ numerical index of another vertex.
+     * @return given graph.
      * @throws NegativeVertexIndexException if any {@code int < 0}.
      * @throws NoSuchVertexIndexException   if given graph does not contain either vertices with indexes type {@code int} given as a parameter.
      * @since 1.0
@@ -222,8 +224,9 @@ public class GraphPrinter<T> {
      * This method prints feedback message if vertices given as a parameter of given graph have been disconnected and returns that graph.
      *
      * @param graph  a graph to disconnect vertices of.
-     * @param indexI index of a vertex
-     * @param indexJ index of another vertex
+     * @param indexI numerical index of a vertex.
+     * @param indexJ numerical index of another vertex.
+     * @return given graph.
      * @throws NegativeVertexIndexException if any {@code int < 0}.
      * @throws NoSuchVertexIndexException   if graph does not contain either vertices with indexes type {@code int} given as a parameter.
      * @since 1.0
@@ -237,7 +240,7 @@ public class GraphPrinter<T> {
     /**
      * This method prints feedback message whether given subset as a parameter is a connected dominating set in given graph or is not.
      *
-     * @param graph    a graph to check if given set is a dominating set of.
+     * @param graph    a graph to check if given vertices set is a dominating set in that graph.
      * @param vertices {@code Collection} of a vertices indexes to check if they form a connected dominating set in given graph.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
      * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of given graph.
@@ -252,6 +255,7 @@ public class GraphPrinter<T> {
     /**
      * This method prints feedback message whether given subset as a parameter is an independent set in given graph or is not.
      *
+     * @param graph a graph to check if given vertices collection is an independent set in that graph.
      * @param vertices {@code Collection} of a vertices indexes to check if they form a connected dominating set in given graph.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
      * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of given graph.
@@ -278,7 +282,7 @@ public class GraphPrinter<T> {
     /**
      * This method prints feedback message whether given subset as a parameter induces bipartite subgraph of given graph or it does not.
      *
-     * @param graph    a graph to check if given vertices set induces bipartite subgraph of.
+     * @param graph    a graph to check if given vertices collection induces bipartite subgraph of that graph.
      * @param vertices {@code Collection} of a vertices indexes to check if they induce bipartite subgraph of given graph.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
      * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of given graph.
@@ -290,10 +294,10 @@ public class GraphPrinter<T> {
         doInduceConditionalMessage(induces, message);
     }
 
-
     /**
      * This method prints feedback message whether given subset as a parameter induces connected subgraph of given graph or does not.
      *
+     * @param graph  a graph to check if given vertices collection induces connected subgraph of that graph.
      * @param vertices {@code Collection} of a vertices indexes to check if they induce connected subgraph of given graph.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
      * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of given graph.

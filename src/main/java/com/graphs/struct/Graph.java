@@ -447,6 +447,16 @@ public class Graph<T> {
         return this.itsVertices.add(new Vertex<>(index));
     }
 
+    /**
+     * This method adds new vertex with given data to store in it to this graph.
+     * The vertex is added only if the graph does not contain it already.
+     *
+     * @param index numerical index of vertex.
+     * @param data data to store in added vertex.
+     * @return {@code true} if vertex with given {@code int} index was added, {@code false} otherwise.
+     * @throws NegativeVertexIndexException if parameter type {@code int < 0}.
+     * @since 2.0
+     */
     public boolean addNewVertex(int index, T data) throws NegativeVertexIndexException {
         boolean added = addNewVertex(index);
         if (added) setVertexData(index, data);
