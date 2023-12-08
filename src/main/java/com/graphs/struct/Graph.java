@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  *
  * @param <T> the bounding type stored in this graph in its vertices.
  * @author Łukasz Malara
- * @version JDK 1.4
+ * @version JDK 1.7
  * @since 1.0-beta
  */
 @NoArgsConstructor
@@ -666,7 +666,7 @@ public class Graph<T> {
         for (Vertex<T> v : this.itsVertices) {
             boolean containsEveryOther = new HashSet<>(v.neighbours).containsAll(allVertices.stream()
                     .filter(vertex -> !vertex.equals(v))
-                    .collect(Collectors.toList()));
+                    .toList());
             if (!containsEveryOther) return false;
         }
         return true;
@@ -926,7 +926,7 @@ public class Graph<T> {
     private @NotNull Collection<Vertex<T>> mapIndexesToVertices(@NotNull Collection<Integer> indexes) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         return indexes.stream()
                 .map(this::getVertex)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     /**
@@ -965,7 +965,7 @@ public class Graph<T> {
                 .sorted(Comparator.comparingInt(Vertex::getIndex))
                 .map(vertex -> vertex + " -> " + vertex.neighbours.stream()
                         .sorted(Comparator.comparingInt(Vertex::getIndex))
-                        .collect(Collectors.toUnmodifiableList())
+                        .toList()
                         + ", content: " + vertex.element)
                 .collect(Collectors.joining("\n"));
     }
