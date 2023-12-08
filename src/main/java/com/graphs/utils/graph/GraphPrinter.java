@@ -57,8 +57,19 @@ public class GraphPrinter<T> {
      * @param baseMessage message that is printed besides condition satisfaction.
      * @since 1.0
      */
-    private static void doInduceConditionalMessage(boolean induces, String baseMessage) {
+    private static void printDoInduceConditionalMessage(boolean induces, String baseMessage) {
         printConditionalMessage(induces, baseMessage, "induce", "do not induce");
+    }
+
+    /**
+     * This method prints feedback message about satisfaction if type is as expected.
+     *
+     * @param is condition to verify if type is as expected.
+     * @param baseMessage message that is printed besides condition satisfaction.
+     * @since 2.0
+     */
+    private static void printIsConditionalMessage(boolean is, String baseMessage) {
+        printConditionalMessage(is, baseMessage, MessageProvider.IS, MessageProvider.IS_NOT);
     }
 
     /**
@@ -249,7 +260,7 @@ public class GraphPrinter<T> {
     public void printIsConnectedDominatingSet(Graph<T> graph, Collection<Integer> vertices) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         boolean cds = graph.isCDS(vertices);
         String message = vertices + " %s " + "connected dominating set.";
-        printConditionalMessage(cds, message, MessageProvider.IS, MessageProvider.IS_NOT);
+        printIsConditionalMessage(cds, message);
     }
 
     /**
@@ -264,7 +275,7 @@ public class GraphPrinter<T> {
     public void printIsIndependentSet(Graph<T> graph, Collection<Integer> vertices) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         boolean is = graph.isIndependentSet(vertices);
         String message = vertices + " %s " + "independent set.";
-        printConditionalMessage(is, message, MessageProvider.IS, MessageProvider.IS_NOT);
+        printIsConditionalMessage(is, message);
     }
 
     /**
@@ -276,7 +287,7 @@ public class GraphPrinter<T> {
     public void printIsBipartite(Graph<T> graph) {
         boolean bipartite = graph.isBipartite();
         String message = "Graph %s bipartite.";
-        printConditionalMessage(bipartite, message, MessageProvider.IS, MessageProvider.IS_NOT);
+        printIsConditionalMessage(bipartite, message);
     }
 
     /**
@@ -291,7 +302,7 @@ public class GraphPrinter<T> {
     public void printDoInduceBipartiteSubGraph(Graph<T> graph, Collection<Integer> vertices) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         boolean induces = graph.doInduceBipartiteSubGraph(vertices);
         String message = vertices + " %s bipartite subgraph.";
-        doInduceConditionalMessage(induces, message);
+        printDoInduceConditionalMessage(induces, message);
     }
 
     /**
@@ -306,6 +317,6 @@ public class GraphPrinter<T> {
     public void printDoInduceConnectedSubGraph(Graph<T> graph, Collection<Integer> vertices) throws NegativeVertexIndexException, NoSuchVertexIndexException {
         boolean induces = graph.doInduceConnectedSubGraph(vertices);
         String message = vertices + " %s connected subgraph.";
-        doInduceConditionalMessage(induces, message);
+        printDoInduceConditionalMessage(induces, message);
     }
 }

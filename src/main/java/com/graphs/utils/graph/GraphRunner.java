@@ -110,17 +110,17 @@ public class GraphRunner implements Runnable {
         GraphPrinter<Integer> integerGraphPrinter = new GraphPrinter<>();
 
         integerGraphPrinter.printGraph(complete);
-        complete = integerGraphPrinter.printIfVerticesRemoved(complete, List.of(2, 4));
-        integerGraphPrinter.printGraph(complete);
-        complete = integerGraphPrinter.printIfVerticesDisconnected(complete, 3, 7);
-        integerGraphPrinter.printGraph(complete);
-        integerGraphPrinter.printIsConnectedDominatingSet(complete, List.of(3, 7));
-        integerGraphPrinter.printIsConnectedDominatingSet(complete, List.of(6));
+        Graph<Integer> graphInteger = integerGraphPrinter.printIfVerticesRemoved(complete, List.of(2, 4));
+        integerGraphPrinter.printGraph(graphInteger);
+        graphInteger = integerGraphPrinter.printIfVerticesDisconnected(graphInteger, 3, 7);
+        integerGraphPrinter.printGraph(graphInteger);
+        integerGraphPrinter.printIsConnectedDominatingSet(graphInteger, List.of(3, 7));
+        integerGraphPrinter.printIsConnectedDominatingSet(graphInteger, List.of(6));
         Random random = new Random();
-        for (Integer index : complete.getVertices()) {
-            integerGraphPrinter.printIfSetVertexData(complete, index, random.nextInt());
+        for (Integer index : graphInteger.getVertices()) {
+            integerGraphPrinter.printIfSetVertexData(graphInteger, index, random.nextInt());
         }
-        integerGraphPrinter.printGraph(complete);
+        integerGraphPrinter.printGraph(graphInteger);
 
         PrettierPrinter.newLine();
 
