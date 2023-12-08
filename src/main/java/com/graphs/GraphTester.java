@@ -16,7 +16,7 @@ import com.graphs.utils.graph.GraphRunner;
  *
  * @since 1.0
  * @author Łukasz Malara
- * @version JDK 1.4
+j * @version JDK 1.7
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class GraphTester {

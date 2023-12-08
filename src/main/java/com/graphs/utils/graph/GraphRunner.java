@@ -1,29 +1,21 @@
 package com.graphs.utils.graph;
 
-import com.graphs.exceptions.vertex.NegativeVertexIndexException;
-import com.graphs.exceptions.vertex.NoSuchVertexIndexException;
 import com.graphs.exceptions.vertex.VertexIndexException;
 import com.graphs.struct.Graph;
 import com.graphs.utils.FileFinder;
 import com.graphs.utils.PrettierPrinter;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * This class implements testing behaviour of {@link Graph} class.
  *
  * @author Łukasz Malara
- * @version JDK 1.4
  * @since 1.0
+ * @version JDK 1.7
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GraphRunner {
@@ -144,17 +136,42 @@ public class GraphRunner {
 
         GraphProducer<String> graphProducer = new GraphProducer<>();
         Graph<String> suspiciousGraph = graphProducer.newEmptyGraph();
+        GraphPrinter<String> graphPrinter = new GraphPrinter<>();
 
-        suspiciousGraph.addNewVertex(1, "Hello");
-        suspiciousGraph.addNewVertex(2, "World");
+        graphPrinter.printIfVerticesAdded(suspiciousGraph, List.of(1, 2));
+        graphPrinter.printGraph(suspiciousGraph);
+        suspiciousGraph = graphPrinter.printIfSetVertexData(suspiciousGraph, 1, "Hello");
+        graphPrinter.printGraph(suspiciousGraph);
+        suspiciousGraph = graphPrinter.printIfSetVertexData(suspiciousGraph, 2, "world");
+        graphPrinter.printGraph(suspiciousGraph);
 
         try {
             suspiciousGraph.areVerticesOfGraph(List.of(1, -1, 2));
         } catch (VertexIndexException e) {
             System.out.println(e.getMessage());
         }
+
         try {
             suspiciousGraph.getVertexNeighbourhood(0);
+        } catch (VertexIndexException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            suspiciousGraph.getVertexData(3);
+        } catch (VertexIndexException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            suspiciousGraph.setVertexData(Integer.MIN_VALUE, null);
+        } catch (VertexIndexException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            suspiciousGraph.setVertexData(Integer.MAX_VALUE,
+                    String.join("...", "Lorem", "ipsum", "dolor", "sit", "amet"));
         } catch (VertexIndexException e) {
             System.out.println(e.getMessage());
         }

@@ -5,10 +5,15 @@ package com.graphs.exceptions.vertex;
  *
  * @since 1.0
  * @author Łukasz Malara
- * @version JDK 1.4
+ * @version JDK 1.7
  */
 public final class NegativeVertexIndexException extends VertexIndexException {
 
+    /**
+     * This constructor create a new instance of exception with predefined message.
+     *
+     * @since 1.0
+     */
     public NegativeVertexIndexException() {
         super("Vertex index should not be a negative number.");
     }

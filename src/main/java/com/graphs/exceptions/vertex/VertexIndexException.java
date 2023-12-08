@@ -6,10 +6,16 @@ package com.graphs.exceptions.vertex;
  * @see NegativeVertexIndexException
  * @see NoSuchVertexIndexException
  * @author Łukasz Malara
- * @version JDK 1.4
+ * @version JDK 1.7
  */
 public abstract class VertexIndexException extends RuntimeException {
 
+    /**
+     * This constructor create a new instance of exception with given message.
+     *
+     * @param message message to set
+     * @since 1.0-beta
+     */
     protected VertexIndexException(String message) {
         super(VertexIndexException.class.getSimpleName() + ": " + message);
     }

@@ -16,6 +16,7 @@ import java.util.stream.Stream;
  *
  * @author Łukasz Malara
  * @since 2.0
+ * @version JDK 1.7
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FileFinder {

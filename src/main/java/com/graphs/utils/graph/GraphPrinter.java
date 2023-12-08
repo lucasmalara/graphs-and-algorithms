@@ -15,9 +15,10 @@ import java.util.Set;
  * Using this class you can print graph structure and
  * useful information related to some methods of that class.
  *
- * @param <T> the bounding type stored in given graphs.
  * @author Łukasz Malara
  * @since 2.0
+ * @version JDK 1.7
+ * @param <T> the bounding type stored in given graphs.
  */
 public class GraphPrinter<T> {
 

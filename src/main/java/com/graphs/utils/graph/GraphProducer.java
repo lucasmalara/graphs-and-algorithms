@@ -10,9 +10,10 @@ import java.util.Optional;
 /**
  * This utility class produce instances of {@link Graph}.
  *
- * @param <T> the bounding type stored in given graphs.
  * @author Łukasz Malara
  * @since 2.0
+ * @version JDK 1.7
+ * @param <T> the bounding type stored in given graphs.
  */
 public class GraphProducer<T> {
 

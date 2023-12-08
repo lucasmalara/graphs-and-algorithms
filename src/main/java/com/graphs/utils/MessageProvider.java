@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
  *
  * @author Łukasz Malara
  * @since 2.0
+ * @version JDK 1.7
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MessageProvider {
