@@ -162,6 +162,28 @@ public class GraphPrinter<T> {
     }
 
     /**
+     * This method prints feedback message when set given vertex data of given vertex by its index of given graph
+     * and returns that graph.
+     *
+     * @param graph a graph to set a new data in its vertex.
+     * @param index numerical index of vertex
+     * @param t new data to store in vertex given by its index.
+     * @return given graph
+     * @throws NegativeVertexIndexException if parameter type {@code int < 0}.
+     * @throws NoSuchVertexIndexException   if this graph does not contain vertex with given {@code int} index.
+     * @since 2.0
+     */
+    public Graph<T> printIfSetVertexData(Graph<T> graph, int index, T t) throws NoSuchVertexIndexException, NegativeVertexIndexException {
+        T data = graph.getVertexData(index);
+        System.out.println("Data stored in vertex indexed by " + index + ": " + data);
+        graph.setVertexData(index, t);
+        System.out.println("Set new data.");
+        T updatedData = graph.getVertexData(index);
+        System.out.println("Data stored in vertex indexed by " + index + ": " + updatedData);
+        return graph;
+    }
+
+    /**
      * This method prints feedback message if vertices given as a parameter have been removed from given graph
      * and returns that graph.
      *
