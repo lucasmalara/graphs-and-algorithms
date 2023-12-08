@@ -19,6 +19,12 @@ import java.util.Random;
  */
 public class GraphRunner implements Runnable {
 
+    /**
+     * This field stores value that decides whether this runner class
+     * should run exceptions test as well or should not.
+     *
+     * @since 2.0
+     */
     private final boolean allowExceptions;
 
     /**
