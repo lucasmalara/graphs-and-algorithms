@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * This class is a printer introducing methods that helps your printed outputs to be prettier.
+ * This utility class is a printer introducing methods that helps your printed outputs to be prettier.
  * It provides separators and headers.
  *
  * @since 2.0

@@ -9,7 +9,6 @@ import com.graphs.utils.PrettierPrinter;
 import java.util.Collection;
 import java.util.Set;
 
-
 /**
  * This utility class is a printer for {@link Graph}.
  * Using this class you can print graph structure and

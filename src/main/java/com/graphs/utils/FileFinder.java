@@ -52,7 +52,6 @@ public class FileFinder {
     public static final String BIPARTITE = "bipartite_graph.txt";
 
 
-
     /**
      * This method finds names of every available file in given directory.
      *

@@ -87,6 +87,7 @@ public class Graph<T> {
          * @throws NegativeVertexIndexException if given parameter type {@code int < 0}.
          * @see #index
          * @see #addNewVertex(int)
+         * @see #addNewVertex(int, Object) 
          * @since 1.0-beta
          */
         private Vertex(int index) throws NegativeVertexIndexException {
