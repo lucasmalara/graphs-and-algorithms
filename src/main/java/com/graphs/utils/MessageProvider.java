@@ -20,6 +20,13 @@ public final class MessageProvider {
     public static final String IO_EXC_MSG = "Could not load data from a file from source: ";
 
     /**
+     * This field stores a message for one of the exception once it is caught.
+     *
+     * @since 1.0
+     */
+    public static final String NUMBER_FORMAT_EXC_MSG = "File contains forbidden character(s). ";
+
+    /**
      * This field stores a part of one of the feedback messages.
      *
      * @since 1.0
