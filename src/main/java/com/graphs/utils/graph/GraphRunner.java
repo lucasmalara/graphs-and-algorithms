@@ -20,15 +20,15 @@ import java.util.Random;
 public class GraphRunner implements Runnable {
 
     /**
-     * This field stores value that decides whether this runner class
-     * should run exceptions test as well or should not.
+     * This field stores a value that decides whether this runner class
+     * should run exceptions' test as well or should not.
      *
      * @since 2.0
      */
     private final boolean allowExceptions;
 
     /**
-     * This constructor create runner class of {@link Graph}.
+     * This constructor creates runner class of {@link Graph}.
      *
      * @since 1.0
      */
@@ -37,7 +37,7 @@ public class GraphRunner implements Runnable {
     }
 
     /**
-     * This constructor create runner class of {@link Graph}.
+     * This constructor creates runner class of {@link Graph}.
      *
      * @param allowExceptions if {@code true} run exceptions test as well, if {@code false} run basic test only.
      * @since 2.0
@@ -168,7 +168,7 @@ public class GraphRunner implements Runnable {
     }
 
     /**
-     * This method initializes run of exceptions test.
+     * This method initializes run of exceptions' test.
      * None exception requires handling or catching outside this method.
      *
      * @since 1.0

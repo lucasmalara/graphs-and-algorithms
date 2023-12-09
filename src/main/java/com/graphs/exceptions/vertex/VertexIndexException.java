@@ -11,7 +11,7 @@ package com.graphs.exceptions.vertex;
 public abstract class VertexIndexException extends RuntimeException {
 
     /**
-     * This constructor create a new instance of exception with given message.
+     * This constructor creates a new instance of exception with a given message.
      *
      * @param message message to set
      * @since 1.0-beta

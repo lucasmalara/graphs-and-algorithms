@@ -50,7 +50,8 @@ public class Graph<T> {
     private class Vertex<E extends T> {
 
         /**
-         * This field represents index of a vertex. Once initialized, cannot be changed.
+         * This field represents the index of a vertex.
+         * Once initialized, it cannot be changed.
          * <pre>
          *  Minimal value: 0
          *  Maximal value: {@link Integer#MAX_VALUE}
@@ -96,7 +97,7 @@ public class Graph<T> {
         }
 
         /**
-         * This method returns degree of this vertex.
+         * This method returns the degree of this vertex.
          *
          * @return number of vertices in an open neighbourhood of this vertex.
          * @see #neighbours
@@ -109,7 +110,7 @@ public class Graph<T> {
         /**
          * This method checks whether this vertex is connected with other given {@code Vertex} or is not.
          *
-         * @param vertex other vertex that is possibly adjacent to this vertex.
+         * @param vertex a different vertex that is possibly adjacent to this vertex.
          * @return {@code true} if vertices are adjacent, {@code false} otherwise.
          * @since 1.0-beta
          */
@@ -193,9 +194,9 @@ public class Graph<T> {
     private final List<Vertex<T>> itsVertices = new ArrayList<>();
 
     /**
-     * This constructor creates graph based on a strictly defined pattern provided in a text file.
+     * This constructor creates a graph based on a strictly defined pattern provided in a text file.
      * Path to file is given as a {@code  String} parameter.
-     * The graph is created only if algorithm ends successfully.
+     * The graph is created only if the algorithm ends successfully.
      *
      * @param fileSource absolute or relative path to a file required to create a graph.
      * @throws NegativeVertexIndexException if negative number was provided in a file.
@@ -260,7 +261,7 @@ public class Graph<T> {
      *
      * @param startIndex numerical index of first vertex of graph
      * @param size       number of vertices to generate for a graph.
-     * @return complete graph if graph was empty, same graph otherwise.
+     * @return complete graph if graph was empty, the same graph otherwise.
      * @throws NegativeVertexIndexException if first parameter type {@code int < 0}.
      * @see #complete(int, int)
      * @since 1.0
@@ -329,7 +330,7 @@ public class Graph<T> {
     }
 
     /**
-     * This method returns unmodifiable sorted set of vertices of this graph.
+     * This method returns an unmodifiable sorted set of vertices of this graph.
      * Returned {@code SortedSet} of {@code Integer} corresponds to user-friendly representation of vertices of {@link Graph}.
      *
      * @return unmodifiable sorted set of vertices of this graph.
@@ -368,7 +369,7 @@ public class Graph<T> {
     }
 
     /**
-     * This method returns unmodifiable sorted set of neighbours of vertex given by {@code int} index.
+     * This method returns an unmodifiable sorted set of neighbours of vertex given by {@code int} index.
      *
      * @param index numerical index of a vertex.
      * @return unmodifiable sorted set of neighbours of a vertex given by {@code int} index.
@@ -408,7 +409,7 @@ public class Graph<T> {
 
 
     /**
-     * This method checks whether given subset contains a given vertex.
+     * This method checks whether a given subset contains a given vertex.
      *
      * @param vertices vertices subset of graph.
      * @param vertex   a vertex to check if it is in the subset.
@@ -433,7 +434,7 @@ public class Graph<T> {
     }
 
     /**
-     * This method adds new vertex to this graph.
+     * This method adds a new vertex to this graph.
      * The vertex is added only if the graph does not contain it already.
      *
      * @param index numerical index of vertex.
@@ -448,7 +449,7 @@ public class Graph<T> {
     }
 
     /**
-     * This method adds new vertex with given data to store in it to this graph.
+     * This method adds a new vertex with given data to store in it to this graph.
      * The vertex is added only if the graph does not contain it already.
      *
      * @param index numerical index of vertex.
@@ -488,11 +489,11 @@ public class Graph<T> {
     /**
      * This method connects given two vertices by their indexes.
      *
-     * @param indexV numerical index of first vertex.
+     * @param indexV numerical index of the first vertex.
      * @param indexU numerical index of another vertex.
-     * @return {@code true} if vertices with given indexes has been connected, {@code false} otherwise.
+     * @return {@code true} if vertices with given indexes have been connected, {@code false} otherwise.
      * @throws NegativeVertexIndexException if any {@code int < 0}.
-     * @throws NoSuchVertexIndexException   if this graph does not contain vertex with given either indexes.
+     * @throws NoSuchVertexIndexException   if this graph does not contain vertex with given either index.
      * @since 1.0-beta
      */
     public boolean connectVertices(int indexV, int indexU) throws NegativeVertexIndexException, NoSuchVertexIndexException {
@@ -504,11 +505,11 @@ public class Graph<T> {
     /**
      * This method disconnects given two vertices.
      *
-     * @param indexV numerical index of first vertex.
+     * @param indexV numerical index of the first vertex.
      * @param indexU numerical index of another vertex.
-     * @return {@code true} if vertices with given indexes has been disconnected, {@code false} otherwise.
+     * @return {@code true} if vertices with given indexes have been disconnected, {@code false} otherwise.
      * @throws NegativeVertexIndexException if any {@code int < 0}.
-     * @throws NoSuchVertexIndexException   if this graph does not contain vertex with given either indexes.
+     * @throws NoSuchVertexIndexException   if this graph does not contain vertex with given either index.
      * @since 1.0
      */
     public boolean disconnectVertices(int indexV, int indexU) throws NegativeVertexIndexException, NoSuchVertexIndexException {
@@ -561,8 +562,9 @@ public class Graph<T> {
     }
 
     /**
-     * This method is a modified implementation of a known traverse algorithm in graphs - breadth first search.
-     * Only vertices from given {@code Collection} can be visited. It returns number of visited vertices.
+     * This method is a modified implementation of a known traverse algorithm in graphs - breadth-first search.
+     * Only vertices from given {@code Collection} can be visited.
+     * It returns the number of visited vertices.
      *
      * @param subset subset of vertices of this graph.
      * @return numbers of visited vertices.
@@ -592,9 +594,9 @@ public class Graph<T> {
      * This method checks if given vertex was not already visited and is in given subset.
      *
      * @param subset  subset of vertices
-     * @param vertex  a vertex to check if it is given subset, and it was not already visited.
+     * @param vertex  a vertex to check if it is given subset, and it was not yet visited.
      * @param visited set of visited vertices.
-     * @return {@code true} if vertex is in the subset and was not already visited, {@code false} otherwise.
+     * @return {@code true} if vertex is in the subset and was not yet visited, {@code false} otherwise.
      * @since 1.1
      */
     private boolean isInSubsetNotVisited(@NotNull Collection<Vertex<T>> subset, Vertex<T> vertex, HashSet<Vertex<T>> visited) {
@@ -602,8 +604,9 @@ public class Graph<T> {
     }
 
     /**
-     * This method is a modified implementation of a known traverse algorithm in graphs - depth first search.
-     * Only vertices from given {@code Collection} can be visited. It returns number of visited vertices.
+     * This method is a modified implementation of a known traverse algorithm in graphs - depth-first search.
+     * Only vertices from given {@code Collection} can be visited.
+     * It returns the number of visited vertices.
      *
      * @param subset subset of vertices of this graph.
      * @return numbers of visited vertices.
@@ -745,7 +748,7 @@ public class Graph<T> {
     /**
      * This method checks whether given {@code Collection} is a connected dominating set of this graph or is not.
      *
-     * @param subset {@code Collection} containing indexes of vertices to check if they induce connected dominating set of this graph.
+     * @param subset {@code Collection} containing indexes of vertices to check if they induce a connected dominating set of this graph.
      * @return {@code true} if given {@code Collection} is a connected dominating set in this graph, {@code false} otherwise.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
      * @throws NoSuchVertexIndexException   if given {@code Collection} contains number that could not be identified with any vertex index.
@@ -776,8 +779,8 @@ public class Graph<T> {
     }
 
     /**
-     * This method finds minimal connected dominating set in this graph.
-     * The result is unmodifiable sorted subset of vertices of this graph.
+     * This method finds a minimal connected dominating set in this graph.
+     * The result is an unmodifiable-sorted subset of vertices of this graph.
      * <p>
      * To learn more details, read here {@link #computeMCDS()}.
      * </p>
@@ -790,7 +793,7 @@ public class Graph<T> {
     }
 
     /**
-     * This method computes minimal connected dominating set in this graph.
+     * This method computes a minimal connected dominating set in this graph.
      * <p>
      * It is an implementation of an approximation algorithm for finding minimum connected dominating set in {@link Graph}.
      * Since domination problem is a NP-C problem, this method can find not necessary an optimal solution.
@@ -838,8 +841,8 @@ public class Graph<T> {
     }
 
     /**
-     * This method finds minimal dominating set in this graph.
-     * The result is unmodifiable sorted subset of vertices of this graph.
+     * This method finds a minimal dominating set in this graph.
+     * The result is an unmodifiable-sorted subset of vertices of this graph.
      * <p>
      * To learn more details, read here: {@link #computeMDS()}.
      * </p>
@@ -852,7 +855,7 @@ public class Graph<T> {
     }
 
     /**
-     * This method computes minimal dominating set in this graph.
+     * This method computes a minimal dominating set in this graph.
      * <p>
      * It is an implementation of an approximation algorithm for finding minimum dominating set in {@link Graph}.
      * Since domination problem is a NP-C problem, this method can find not necessary an optimal solution.
@@ -882,8 +885,8 @@ public class Graph<T> {
     }
 
     /**
-     * This method finds maximal independent set of this graph.
-     * The result is unmodifiable sorted subset of vertices of this graph.
+     * This method finds a maximal independent set of this graph.
+     * The result is an unmodifiable-sorted subset of vertices of this graph.
      * <p>
      * To learn more details, read here: {@link #computeMIS()}
      * </p>
@@ -896,7 +899,7 @@ public class Graph<T> {
     }
 
     /**
-     * This method computes maximal independent set in this graph.
+     * This method computes a maximal independent set in this graph.
      * <p>
      * It is an implementation of an approximation algorithm for finding maximum independent set in {@link Graph}.
      * Since maximum independent set problem is a NP-hard problem that is hard to approximate,

@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  * This utility class is a printer for {@link Graph}.
- * Using this class you can print graph structure and
+ * Using this class, you can print graph structure and
  * useful information related to some methods of that class.
  *
  * @author Łukasz Malara
@@ -22,7 +22,7 @@ import java.util.Set;
 public class GraphPrinter<T> {
 
     /**
-     * This method prints message if condition is satisfied.
+     * This method prints a message if the condition is satisfied.
      *
      * @param condition condition to check its satisfaction.
      * @param message   message to print if condition is satisfied
@@ -33,12 +33,12 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints conditional message as a feedback of other methods.
+     * This method prints a conditional message as feedback of other methods.
      *
-     * @param condition   condition to verify its satisfaction to determine which message option should be printed in a feedback.
-     * @param baseMessage message that is printed besides satisfaction of a condition.
-     * @param ifTrue      message that is printed if condition is satisfied.
-     * @param ifFalse     message that is printed if condition is unsatisfied.
+     * @param condition   condition to verify its satisfaction to determine which message option should be printed in feedback.
+     * @param baseMessage message printed besides satisfaction of a condition.
+     * @param ifTrue      message printed if condition is satisfied.
+     * @param ifFalse     message printed if condition is unsatisfied.
      * @since 1.0
      */
     private static void printConditionalMessage(boolean condition, String baseMessage, String ifTrue, String ifFalse) {
@@ -51,10 +51,10 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints feedback message about satisfaction of inducing subgraph of a graph by some set.
+     * This method prints a feedback message about satisfaction of inducing subgraph of a graph by some set.
      *
      * @param induces     condition to verify inducing subgraph of a graph by some set.
-     * @param baseMessage message that is printed besides condition satisfaction.
+     * @param baseMessage message printed besides condition satisfaction.
      * @since 1.0
      */
     private static void printDoInduceConditionalMessage(boolean induces, String baseMessage) {
@@ -62,10 +62,10 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints feedback message about satisfaction if type is as expected.
+     * This method prints a feedback message about satisfaction if the type is as expected.
      *
-     * @param is condition to verify if type is as expected.
-     * @param baseMessage message that is printed besides condition satisfaction.
+     * @param is condition to verify if the type is as expected.
+     * @param baseMessage message printed beside condition satisfaction.
      * @since 2.0
      */
     private static void printIsConditionalMessage(boolean is, String baseMessage) {
@@ -95,7 +95,7 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints message if given graph is complete.
+     * This method prints message if a given graph is complete.
      *
      * @param graph   a graph to check if it is complete
      * @param message message to print if given graph is complete
@@ -119,9 +119,9 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints computed minimal dominating set in a given graph.
+     * This method prints computed a minimal dominating set in a given graph.
      *
-     * @param graph a graph to compute minimal dominating set for.
+     * @param graph a graph to compute a minimal dominating set for.
      * @since 1.0
      */
     public void printMDS(Graph<T> graph) {
@@ -132,9 +132,9 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints computed minimal connected dominating set in a given graph.
+     * This method prints computed a minimal connected dominating set in a given graph.
      *
-     * @param graph a graph to compute minimal connected dominating set for.
+     * @param graph a graph to compute a minimal connected dominating set for.
      * @since 1.0
      */
     public void printMCDS(Graph<T> graph) {
@@ -145,9 +145,9 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints computed maximal independent set in a given graph.
+     * This method prints computed a maximal independent set in a given graph.
      *
-     * @param graph a graph to compute maximal independent set for.
+     * @param graph a graph to compute a maximal independent set for.
      * @since 1.0
      */
     public void printMIS(Graph<T> graph) {
@@ -158,7 +158,7 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints feedback message if vertices given as a parameter have been added to given graph
+     * This method prints a feedback message if vertices given as a parameter have been added to given graph
      * and returns that graph.
      *
      * @param graph    a graph to add vertices to.
@@ -174,10 +174,10 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints feedback message when set given vertex data of given vertex by its index of given graph
+     * This method prints a feedback message when set given vertex data of given vertex by its index of given graph
      * and returns that graph.
      *
-     * @param graph a graph to set a new data in its vertex.
+     * @param graph a graph to set new data in its vertex.
      * @param index numerical index of vertex
      * @param t new data to store in vertex given by its index.
      * @return given graph
@@ -197,7 +197,7 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints feedback message if vertices given as a parameter have been removed from given graph
+     * This method prints a feedback message if vertices given as a parameter have been removed from a given graph
      * and returns that graph.
      *
      * @param graph    a graph to remove vertices from.
@@ -214,7 +214,7 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints feedback message if vertices given as a parameter of given graph have been connected
+     * This method prints a feedback message if vertices given as a parameter of given graph have been connected
      * and returns that graph.
      *
      * @param graph  a graph to connect vertices of.
@@ -222,7 +222,7 @@ public class GraphPrinter<T> {
      * @param indexJ numerical index of another vertex.
      * @return given graph.
      * @throws NegativeVertexIndexException if any {@code int < 0}.
-     * @throws NoSuchVertexIndexException   if given graph does not contain either vertices with indexes type {@code int} given as a parameter.
+     * @throws NoSuchVertexIndexException   if given graph does not contain either vertex with index given as a parameter.
      * @since 1.0
      */
     public Graph<T> printIfVerticesConnected(Graph<T> graph, int indexI, int indexJ) throws NegativeVertexIndexException, NoSuchVertexIndexException {
@@ -232,14 +232,15 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints feedback message if vertices given as a parameter of given graph have been disconnected and returns that graph.
+     * This method prints a feedback message
+     * if vertices given as a parameter of given graph have been disconnected and returns that graph.
      *
      * @param graph  a graph to disconnect vertices of.
      * @param indexI numerical index of a vertex.
      * @param indexJ numerical index of another vertex.
      * @return given graph.
      * @throws NegativeVertexIndexException if any {@code int < 0}.
-     * @throws NoSuchVertexIndexException   if graph does not contain either vertices with indexes type {@code int} given as a parameter.
+     * @throws NoSuchVertexIndexException   if given graph does not contain either vertex with index given as a parameter.
      * @since 1.0
      */
     public Graph<T> printIfVerticesDisconnected(Graph<T> graph, int indexI, int indexJ) throws NegativeVertexIndexException, NoSuchVertexIndexException {
@@ -249,7 +250,8 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints feedback message whether given subset as a parameter is a connected dominating set in given graph or is not.
+     * This method prints a feedback message
+     * whether given subset as a parameter is a connected dominating set in given graph or is not.
      *
      * @param graph    a graph to check if given vertices set is a dominating set in that graph.
      * @param vertices {@code Collection} of a vertices indexes to check if they form a connected dominating set in given graph.
@@ -264,9 +266,10 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints feedback message whether given subset as a parameter is an independent set in given graph or is not.
+     * This method prints a feedback message
+     * whether given subset as a parameter is an independent set in given graph or is not.
      *
-     * @param graph a graph to check if given vertices collection is an independent set in that graph.
+     * @param graph a graph to check, if given vertices collection is an independent set in that graph.
      * @param vertices {@code Collection} of a vertices indexes to check if they form a connected dominating set in given graph.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
      * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of given graph.
@@ -279,7 +282,7 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints feedback message whether given graph is bipartite or is not.
+     * This method prints a feedback message whether given graph is bipartite or is not.
      *
      * @param graph a graph to check if it is bipartite
      * @since 1.0
@@ -291,9 +294,10 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints feedback message whether given subset as a parameter induces bipartite subgraph of given graph or it does not.
+     * This method prints a feedback message
+     * whether given subset as a parameter induces bipartite subgraph of given graph or it does not.
      *
-     * @param graph    a graph to check if given vertices collection induces bipartite subgraph of that graph.
+     * @param graph    a graph to check, if given vertices collection is an independent set in that graph.
      * @param vertices {@code Collection} of a vertices indexes to check if they induce bipartite subgraph of given graph.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
      * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of given graph.
@@ -306,9 +310,10 @@ public class GraphPrinter<T> {
     }
 
     /**
-     * This method prints feedback message whether given subset as a parameter induces connected subgraph of given graph or does not.
+     * This method prints a feedback message
+     * whether given subset as a parameter induces connected subgraph of given graph or does not.
      *
-     * @param graph  a graph to check if given vertices collection induces connected subgraph of that graph.
+     * @param graph  a graph to check, if given vertices collection is an independent set in that graph.
      * @param vertices {@code Collection} of a vertices indexes to check if they induce connected subgraph of given graph.
      * @throws NegativeVertexIndexException if given {@code Collection} contains negative number(s).
      * @throws NoSuchVertexIndexException   if {@code Collection} contains any indexes that could not be identified with any vertex of given graph.

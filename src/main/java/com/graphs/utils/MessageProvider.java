@@ -21,7 +21,7 @@ public final class MessageProvider {
     public static final String IO_EXC_MSG = "Could not load data from a file from source: ";
 
     /**
-     * This field stores a message for one of the exception once it is caught.
+     * This field stores a message for one of the exceptions once it is caught.
      *
      * @since 1.0
      */

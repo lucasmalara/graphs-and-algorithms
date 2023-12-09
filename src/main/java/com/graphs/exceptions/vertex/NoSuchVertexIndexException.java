@@ -10,7 +10,7 @@ package com.graphs.exceptions.vertex;
 public final class NoSuchVertexIndexException extends VertexIndexException {
 
     /**
-     * This constructor create a new instance of exception with predefined message based on given parameter.
+     * This constructor creates a new instance of exception with a predefined message based on a given parameter.
      *
      * @param index numerical index of vertex
      * @since 1.0

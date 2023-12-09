@@ -33,7 +33,7 @@ public class GraphProducer<T> {
     private static final List<String> AVAILABLE_FILES = FileFinder.findAvailableFiles(FileFinder.RESOURCES_PATH);
 
     /**
-     * This method returns optional graph based on a structure defined in a file given as a parameter.
+     * This method returns an optional graph based on a structure defined in a file given as a parameter.
      *
      * @param file name of a file containing graph structure definition.
      * @return optional of graph
@@ -53,7 +53,7 @@ public class GraphProducer<T> {
     }
 
     /**
-     * This method returns empty graph and prints feedback message.
+     * This method returns an empty graph and prints feedback message.
      *
      * @return empty graph
      * @since 1.0
@@ -65,7 +65,7 @@ public class GraphProducer<T> {
     }
 
     /**
-     * This method returns complete graph and prints feedback message.
+     * This method returns a complete graph and prints feedback message.
      *
      * @param startIndex least index of vertex in returned graph
      * @param size       size of returned graph

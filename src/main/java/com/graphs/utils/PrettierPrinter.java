@@ -23,7 +23,7 @@ public class PrettierPrinter {
     }
 
     /**
-     * This method terminates current line.
+     * This method terminates the current line.
      *
      * @since 2.0
      */
@@ -32,7 +32,7 @@ public class PrettierPrinter {
     }
 
     /**
-     * This method prints separator and terminates the line.
+     * This method prints the separator and terminates the line.
      *
      * @since 2.0
      */

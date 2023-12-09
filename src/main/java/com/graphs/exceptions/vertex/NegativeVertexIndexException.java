@@ -1,7 +1,7 @@
 package com.graphs.exceptions.vertex;
 
 /**
- * This exception can be thrown whenever negative vertex index occurs.
+ * This exception can be thrown whenever a negative vertex index occurs.
  *
  * @since 1.0
  * @author Łukasz Malara
@@ -10,7 +10,7 @@ package com.graphs.exceptions.vertex;
 public final class NegativeVertexIndexException extends VertexIndexException {
 
     /**
-     * This constructor create a new instance of exception with predefined message.
+     * This constructor creates a new instance of exception with a predefined message.
      *
      * @since 1.0
      */

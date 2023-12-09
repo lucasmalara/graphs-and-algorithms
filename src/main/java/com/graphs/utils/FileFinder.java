@@ -24,28 +24,29 @@ import java.util.stream.Stream;
 public class FileFinder {
 
     /**
-     * This field stores path to resources directory.
+     * This field stores a path to resources directory.
      *
      * @since 1.0
      */
     public static final String RESOURCES_PATH = "src/main/resources/";
 
     /**
-     * This field stores name of wrong prepared(also called unavailable) file that is used purposely to throw an exception.
+     * This field stores the name of wrong prepared(also called unavailable) file
+     * that is used purposely to throw an exception.
      *
      * @since 1.0
      */
     public static final String TRICKY_FILE_NAME = "bad_example.txt";
 
     /**
-     * This field stores name of a file that is used to create some graph.
+     * This field stores the name of a file that is used to create some graph.
      *
      * @since 1.0
      */
     public static final String GRAPH_EXAMPLE = "graph_example.txt";
 
     /**
-     * This field stores name of another file that is used to create bipartite graph.
+     * This field stores the name of another file that is used to create bipartite graph.
      *
      * @since 1.0
      */
@@ -53,7 +54,7 @@ public class FileFinder {
 
 
     /**
-     * This method finds names of every available file in given directory.
+     * This method finds the names of every available file in given directory.
      *
      * @param dir directory to scan through.
      * @return an {@code array} of available files names.

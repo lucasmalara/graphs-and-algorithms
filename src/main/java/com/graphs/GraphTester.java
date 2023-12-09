@@ -22,8 +22,8 @@ import com.graphs.utils.graph.GraphRunner;
 class GraphTester {
 
     /**
-     * This field holds name of an environment variable that its value is used to determine
-     * whether run basic test or additionally run also exception test.
+     * This field holds the name of an environment variable that its value is used to determine
+     * whether run basic test or additionally run an exception test.
      * @since 1.0
      * @see GraphRunner#run()
      */
@@ -33,7 +33,7 @@ class GraphTester {
         final boolean allowExceptionsTest = Boolean.parseBoolean(System.getenv(ALLOW));
         /*
          * Below method can be forced to improper use of Graph methods.
-         * As a consequence, it runs test that throws exceptions that are handled by printing information on console.
+         * As a consequence, it runs a test that throws exceptions that are handled by printing information on console.
          *
          * To use this functionality, add environment variable to the run configuration: allow=true.
          * By Default, this method does not execute exception test.
